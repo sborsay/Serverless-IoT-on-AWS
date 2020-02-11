@@ -8,6 +8,10 @@
  * 
  * Author: Anthony Elder 
  * License: Apache License v2
+ * Sketch Modified by Stephen Borsay for www.udemy.com
+ * https://github.com/sborsay
+ * Add in Char buffer utilizing sprintf to dispatch JSON data to AWS IoT Core
+ * Use and replace your own SID, PW, AWS Account Endpoint, Client cert, private cert, x.509 CA root Cert
  */
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
