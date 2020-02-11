@@ -147,21 +147,6 @@ void loop() {
 
   pubSubCheckConnect();
 
-  /*
-   * 
-   * or ArduinoJSOn Example
-   * 
-   StaticJsonDocument<256> docc;
-  char  json[] =
-  "{\"ID\":\"01\",\"Value\":[\"1\",\"2\"]}";
-  deserializeJson(docc, json);
-  JsonObject object = docc.as<JsonObject>();
-   */
-
-  //int ArduinoJson = random(10, 20);
-  //char inputx[]="{\"temp\":\"ArduinoJson\",\"stargazers\":{""\"totalCount\":3415},\"issues\":{\"totalCount\":21}}";
- // char inputx[] =  "{\"temp\": + randNumber+ ,\"stargazers\": 21}";
-
   char fakeData[100];
 //choose your own number of variables and data types, but avoid data buffer size overload
   float var1 =  random(55,77); //fake number range, adjust as you like
@@ -170,12 +155,8 @@ void loop() {
 
   if (millis() - lastPublish > 10000) {
     String msg = String("Hello from ESP8266: ") + ++msgCount;
-    //add json as string then let c_string deal with it
-   // pubSubClient.publish("outTopic", msg.c_str());
-   pubSubClient.publish("outTopic", fakeData);
-  // pubSubClient.publish("outTopic", inputx);
-//    Serial.print("Published: "); Serial.println(inputx);
-Serial.print("Published: "); Serial.println(fakeData);
+    pubSubClient.publish("outTopic", fakeData);
+    Serial.print("Published: "); Serial.println(fakeData);
     lastPublish = millis();
   }
 }
