@@ -2,7 +2,7 @@
         var s3 = new AWS.S3();
     
         exports.handler = (event, context, callback) => {  
-            var bucketName = "<Your-Bucket-Name/<Your-folder-Name>";
+            var bucketName = "<Your-Bucket-Name>/<Your-folder-Name>";
             var keyName = JSON.stringify(Date.now());
             //var content = JSON.stringify(event);
           var content = JSON.stringify(event.queryStringParameters);
