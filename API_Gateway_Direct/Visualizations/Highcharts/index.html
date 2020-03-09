@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<div class="container">
+  <h1>Dashboard</h1>
+
+  
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title"><strong>Line Chart</strong></h3>
+    </div>
+    <div class="panel-body">
+      <div id="container1"></div>
+    </div>
+  </div>
+
+
+  <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Bar Chart</strong></h3>
+        </div>
+        <div class="panel-body">
+          <div id="container"></div>
+        </div>
+      </div>
+
+</div>
+
+<script>
+
+var x = new XMLHttpRequest();
+x.open("GET", "https://<YOUR-BUCKET-NAME-HERE>.s3.<YOUR-AWS-DataBucket-REGION-HERE>.amazonaws.com", true);
+// x.setRequestHeader("Content-Type", "application/xml");
+x.onreadystatechange = function () {
+  if (x.readyState == 4 && x.status == 200)
+  {
+    let promiseArr = [];
+    let data = [];
+    var doc = x.responseXML;
+    let keys = doc.getElementsByTagName("Key");
+    for (let index = 0; index < keys.length; index++) {
+        let element = keys[index];
+        element = element.textContent;
+
+        let splitName = element.split('/');
+        if(splitName[0] === '<YOUR-FOLDER/KEY-HERE>' && splitName[1] !== '') {
+            promiseArr.push(new Promise((resolve,reject)=>{
+                var innerReq = new XMLHttpRequest();
+                innerReq.open("GET", "https://<YOUR-BUCKET-NAME-HERE>.s3.<YOUR-AWS-DataBucket-REGION-HERE>.amazonaws.com/"+splitName[0]+"/"+splitName[1], true);
+                // innerReq.setRequestHeader("Content-Type", "application/xml");
+                innerReq.onreadystatechange = function () {
+                    if (innerReq.readyState == 4 && innerReq.status == 200)
+                    {
+                        data.push(Object.assign({},JSON.parse(innerReq.responseText),{timestamp:splitName[1]}));
+                        resolve('Done')
+                    }else{
+                        reject(innerReq)
+                    }
+                }
+                innerReq.send(null);
+            }));
+        }
+    }
+    Promise.all(promiseArr.map(p => p.catch(e => e)))
+        .then(res => {
+
+            abcData= data;
+            let barGraphXaxisName = ['Humidity', 'Temperature', 'Uptime'];
+            let humiditySum =0,temperatureSum = 0, uptimeSum= 0;
+            let lineXaxisData =[], humArr=[],tempArr=[],upArr=[];
+            for(let i = 0; i < abcData.length; i++) {
+            humiditySum += Number(abcData[i].humidity);
+            temperatureSum += Number(abcData[i].temperature);
+            uptimeSum += Number(abcData[i].uptime);
+        
+            humArr.push(Number(abcData[i].humidity));
+            tempArr.push(Number(abcData[i].temperature));
+            upArr.push(Number(abcData[i].uptime));
+            // lineXaxisData.push(new Date(Number(abcData[i].timestamp)).toLocaleString());
+}
+            var chart = Highcharts.chart('container', {
+
+    chart: {
+        type: 'column'
+    },
+
+    title: {
+        text: 'Bar Chart'
+    },
+    xAxis: {
+        categories: barGraphXaxisName
+    },
+
+    yAxis: {
+        title: {
+            text: 'Value'
+        }
+    },
+
+    series: [{
+        data: [humiditySum, temperatureSum, uptimeSum]
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                chart: {
+                    className: 'small-chart'
+                }
+            }
+        }]
+    }
+});
+            Highcharts.chart('container1', {
+
+                title: {
+                    text: 'Line chart'
+                },
+
+                yAxis: {
+                    title: {
+                        text: 'Value'
+                    }
+                },
+
+                xAxis: {
+                    categories:upArr
+                },
+
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
+                },
+
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Humdity',
+                    data: humArr
+                }, {
+                    name: 'Temperature',
+                    data: tempArr
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
+            });
+        }).catch(err=>{
+            console.log('err',err)
+        })
+            }
+};
+x.send(null);
+
+</script>
+</body>
+</html>
