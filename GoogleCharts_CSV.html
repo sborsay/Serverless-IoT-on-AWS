@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html>
-<!–– This project by Stephen Borsay  www.device2cloud.net  ––> 
-<!–– Check out my AWS IoT Course on Udemy https://www.udemy.com ––> 
+
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -10,7 +8,7 @@
   
 $(document).ready(function(){
   $("button").click(function(){
-$.get( "https://YOUR_DATA_LOCATION_IN_S3_HERE", function( data ) {
+$.get( "https://<YOUR_DATA_BUCKET>.s3-<YOUR_REGION>.amazonaws.com/<YOUR-FOLDER>/<YOUR-DATA_OBJECT>.csv", function( data ) {
 		//alert( "Data Loaded: " + data );
 		
 		var temperature = data.match( /(?<=^")[0-9.]+/gm );
@@ -69,7 +67,7 @@ for (i = 0; i < timestamps.length; i++) {
 	</script>
 </head>
 <body>
-<img src="YOUR_IMAGE.jpg" alt="Your AWS Project image"> 
+<img src="YOUR_IMAGE.jpg" alt="Your own IoT AWS Project"> 
 <br>
 <button>Press to display our most recent data</button>
 	
