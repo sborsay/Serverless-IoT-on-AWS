@@ -7,7 +7,7 @@ var parseText = function(url) {
     var values ={ "uptime":"", "temperature":"", "humidity":"" };
     $.ajax({
         type     : "GET",
-        url      : "https://<YOUR-BUCKET-NAME-HERE>.s3.amazonaws.com/" + url, //you will ned to addyour region to url too 
+        url      : "https://<YOUR-BUCKET-NAME-HERE>.s3.amazonaws.com/" + url, //you will ned to addyour region to url too ->
         async : false,                                                        //if your base bucket region != your home region
         dataType : "text",
         success  : function(txtFile){
