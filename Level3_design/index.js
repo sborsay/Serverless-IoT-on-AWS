@@ -1,7 +1,6 @@
 var AWS = require('aws-sdk');
 //configuring the AWS environment
-//default name for this fuction should be 'index.js'
-//lambda function called 'index.js'
+//default name for this Lambda fuction should be 'index.js'
 
 var s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
