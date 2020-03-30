@@ -12,8 +12,9 @@ exports.handler = function(event, context, callback) {
     
     //let myDate = new Date();
       let ISO_Date = new Date().toISOString();  //converted to a single line for the pedantics
-    
-    
+                                               //moved time inside of the function to prevent
+                                               //warm starts from reusuing old timestamp
+   
     var params = {
         
       Item: {  
