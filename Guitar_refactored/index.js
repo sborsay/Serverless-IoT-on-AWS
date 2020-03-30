@@ -1,6 +1,7 @@
  //new lambda for data enhancemant uptime to ISO8601 transformm for Devan Sabaratnam's Guitar Project
  //https://hackernoon.com/building-an-iot-dashboard-using-the-onion-omega-and-amazon-aws-a3520f850c9
  //Lambda added for course on serverless IoT on AWS at Udemy.com
+//call this Lmabda fnction index.js in Node for the aws-sdk
  
  // Load the SDK for JavaScript
 const AWS = require('aws-sdk');
