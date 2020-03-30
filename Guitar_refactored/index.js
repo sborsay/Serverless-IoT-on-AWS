@@ -6,7 +6,7 @@
 // Load the SDK for JavaScript
 const AWS = require('aws-sdk');
 // Set the Region 
-const docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
+const docClient = new AWS.DynamoDB.DocumentClient({region: '<YOUR-AWS-REGION-HERE>'});
 
 exports.handler = function(event, context, callback) {
     
