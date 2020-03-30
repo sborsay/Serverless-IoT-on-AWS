@@ -3,7 +3,7 @@
     "Statement": {
         "Effect": "Allow",
         "Action": "dynamodb:PutItem",
-        "Resource": "arn:aws:dynamodb:us-east-1:<YOUR-AWS-ACCOUNT>:table/<YOUR-DYNAMODB-TABLE>"
+        "Resource": "arn:aws:dynamodb:<YOUR-AWS-REGION>:<YOUR-AWS-ACCOUNT>:table/<YOUR-DYNAMODB-TABLE>"
     }
 }
 
