@@ -1,0 +1,13 @@
+Troubleshooting ESP8266 and ESP32 connection issues.
+
+
+1.  Make sure you are on a 2.4GHz network not 5GHz, the device only communicates at 2.4GHz
+
+2.  Make sure port 8883 isn't being blocked by your network admin, this is the port that MQTT(s) traditionally communicates on
+
+3.  Make sure your onboard device certificates match your AWS IoT Core region, the x509 should be fungible between regions
+
+4.  If you aren't receiving your devices payload under your subscription topic in AWS IoT Core in the "test" tab, then go to the "Monitor" tab
+ and see if your device is even connecting.  Often a device is actually connecting, but the payload isn't being received, the reason for this 
+ is usually a problem with your device certificates.  The device will connect but the payload wont pass through if your device certificates
+ aren't exactly correct.
