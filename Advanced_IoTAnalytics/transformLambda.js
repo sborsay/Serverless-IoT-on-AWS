@@ -2,8 +2,8 @@
 //AWS permission CLI directions at botton of page
 //Payloads to test this Lambda with are in this github subdirectory
 
-var weather = require("weather-js");
-var cities = require('cities');
+var weather = require("weather-js");  //https://www.npmjs.com/package/weather-js
+var cities = require('cities');       //https://www.npmjs.com/package/cities
 var AWS = require('aws-sdk');
 
 exports.handler =  async function(event, context) {
