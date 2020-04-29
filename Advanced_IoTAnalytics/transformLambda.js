@@ -38,7 +38,7 @@ event.forEach(message => {
   
   //get ISO8601 date formate. ntively supported in browser JS
 var d = new Date();
-var n = d.toISOString();   //move timestamping function to local scope to prevent warm start, and the memory heap TSR issue
+var n = d.toISOString();   //move timestamping function to local scope to prevent 'warm start' issues, and memory heap TSR issue
 
     /******************* get current weather by using city and state fromm cities.js *******************/
     let data = Object.assign({},message,{City:obj.city, State:obj.state, Time:n});
@@ -53,7 +53,10 @@ return responses;
 };
 
 //Lambda pernissions from the AWS CLI, 'aws' or 'aws2' contingent on your AWS CLI edition
+// reference(currently Page 45, 105)  https://docs.aws.amazon.com/iotanalytics/latest/userguide/analytics-ug.pdf  
 //example 1
-//aws2 lambda add-permission --function-name YOUR-LAMBDA-FUNCTION --statement-id 34545 --principal iotanalytics.amazonaws.com --action lambda:InvokeFunction
+//aws lambda add-permission --function-name <name> --region <region> --statement-id <id> --principal iotanalytics.amazonaws.com --action lambda:InvokeFunction
 //example2
+//aws2 lambda add-permission --function-name YOUR-LAMBDA-FUNCTION --statement-id 34545 --principal iotanalytics.amazonaws.com --action lambda:InvokeFunction
+//example3
 //aws --region us-east-2 lambda add-permission --function-name YOUR-LAMBDA-FUNCTION --statement-id 12345 --principal iotanalytics.amazonaws.com --action lambda:InvokeFunction
