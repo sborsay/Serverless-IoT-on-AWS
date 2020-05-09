@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Analytics Dashboard</title>
+</head>
+
+<body>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-sm-6">
+        <h1>Analytics Dashboard</h1>
+      </div>
+      <div class="col-sm-6" style="margin-top: 25px">
+        <button id="fetch" class="btn btn-primary">Fetch</button>
+        <button id="api-prompt" class="btn btn-success" style="visibility:hidden">Press me API Entry Button</button>
+        <!-- <span id="indicator" style="display: none;">Fetching...</span> -->
+      </div>
+    </div>
+
+
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <strong>Line Chart</strong>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div id="container1"></div>
+      </div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <strong>Internal Line Chart</strong>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div id="container"></div>
+      </div>
+    </div>
+
+  </div>
+  <script>
+
+    window.onload = function exampleFunction() {
+      let APIKeyVar = null;	
+      const promptBtn = document.getElementById('api-prompt');
+      let listener = function(){
+        APIKeyVar = prompt('Enter your your API KEY?');
+        if(APIKeyVar) {
+          alert('you entered ' + APIKeyVar + ', lets see if it is valid!');
+          fetchS3Data();
+        }
+      };
+      promptBtn.addEventListener('click',listener);
+
+      function showPromptBox() {
+        document.getElementById('api-prompt').style.visibility = 'visible';
+      }
+
+      document.getElementById('fetch').addEventListener('click', showPromptBox)
+
+      
+      function fetchS3Data() {
+	  
+    // if(!APIKeyVar){
+    //   return alert('API key is empty. Please fill API Key.');
+    // }
+	 
+	  //  var APIKeyVar = "sobtH6tqQI7X9OjnR0Fov5ag8wHnuelW1WknXzBN";
+        // document.getElementById('indicator').style.display = 'inline';
+        var x = new XMLHttpRequest();
+
+        // API Gateway  ////
+        x.open("GET", "<YOUR-API-ENDPOINT-HERE>", true);
+		x.setRequestHeader("x-api-key", APIKeyVar)
+        ///----------------------////
+        x.onreadystatechange = function () {
+          if (x.readyState == 4 && x.status == 200) {
+            let abcData = JSON.parse(x.responseText);
+
+            abcData.sort((a,b)=>{
+              return new Date(a.time) - new Date(b.time);
+            })
+
+            let barGraphXaxisName = ['Humidity', 'Temperature', 'Uptime'];
+            let humiditySum = 0, temperatureSum = 0, uptimeSum = 0;
+            let lineXaxisData = [], humArr = [], tempArr = [], upArr = [], xAxisData = [], inhumidArr =[], intempArr=[];
+            let toolTipMap = {};
+            for (let i = 0; i < abcData.length; i++) {
+
+              try {
+
+                humArr.push(Number(abcData[i].weather.humidity));
+                tempArr.push(Number(abcData[i].weather.temperature));
+                inhumidArr.push(Number(abcData[i].inhumid));
+                intempArr.push(Number(abcData[i].intemp));
+                upArr.push(Number(abcData[i].uptime));
+                let dt = new Date(abcData[i].time);
+                let tempAxis = dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString();
+                xAxisData.push(tempAxis);
+                toolTipMap[tempAxis] = { city: abcData[i].city, state: abcData[i].state, lat: abcData[i].lat, long: abcData[i].long }
+
+              } catch (error) {
+                console.log(error);
+              }
+            }
+
+            Highcharts.chart('container1', {
+
+              title: {
+                text: 'Line chart'
+              },
+              tooltip: {
+                useHTML: true,
+                style: {
+                  padding: 0,
+                  pointerEvents: 'auto'
+                },
+                formatter: function () {
+                  return `<a target="new" href="http://maps.google.com/maps?q=${toolTipMap[this.x].lat},${toolTipMap[this.x].long}">
+                    Time: ${this.x} <br>State: ${toolTipMap[this.x].state}<br>City:${toolTipMap[this.x].city}
+                    </a>`
+                }
+              },
+              yAxis: {
+                title: {
+                  text: 'Value'
+                }
+              },
+
+              xAxis: {
+                categories: xAxisData
+              },
+
+              legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+              },
+
+              plotOptions: {
+                series: {
+                  label: {
+                    connectorAllowed: false
+                  }
+                }
+              },
+              series: [{
+                name: 'Humdity',
+                data: humArr
+              }, {
+                name: 'Temperature',
+                data: tempArr
+              }],
+
+              responsive: {
+                rules: [{
+                  condition: {
+                    maxWidth: 500
+                  },
+                  chartOptions: {
+                    legend: {
+                      layout: 'horizontal',
+                      align: 'center',
+                      verticalAlign: 'bottom'
+                    }
+                  }
+                }]
+              }
+            });
+
+
+
+            Highcharts.chart('container', {
+
+              title: {
+                text: 'Internal Line chart'
+              },
+              tooltip: {
+                useHTML: true,
+                style: {
+                  padding: 0,
+                  pointerEvents: 'auto'
+                },
+                formatter: function () {
+                  return `<a target="new" href="http://maps.google.com/maps?q=${toolTipMap[this.x].lat},${toolTipMap[this.x].long}">
+                    Time: ${this.x} <br>State: ${toolTipMap[this.x].state}<br>City:${toolTipMap[this.x].city}
+                  Lat: ${toolTipMap[this.x].lat}, Long: ${toolTipMap[this.x].long}
+                    </a>`
+                }
+              },
+              yAxis: {
+                title: {
+                  text: 'Value'
+                }
+              },
+
+              xAxis: {
+                categories: xAxisData
+              },
+
+              legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+              },
+
+              plotOptions: {
+                series: {
+                  label: {
+                    connectorAllowed: false
+                  }
+                }
+              },
+              series: [{
+                name: 'Humdity',
+                data: inhumidArr
+              }, {
+                name: 'Temperature',
+                data: intempArr
+              }],
+
+              responsive: {
+                rules: [{
+                  condition: {
+                    maxWidth: 500
+                  },
+                  chartOptions: {
+                    legend: {
+                      layout: 'horizontal',
+                      align: 'center',
+                      verticalAlign: 'bottom'
+                    }
+                  }
+                }]
+              }
+            });
+
+            document.getElementById('api-prompt').style.visibility = 'hidden';
+
+            // document.getElementById('indicator').style.display = 'none';
+          }
+        }
+        x.onerror = function() {
+          document.getElementById('api-prompt').style.visibility = 'hidden';
+
+          // document.getElementById('indicator').style.display = 'none';
+          alert('Invalid API KEY');
+        }
+        x.send(null);
+      }
+    }
+  </script>
+</body>
+
+</html>
