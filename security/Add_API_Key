@@ -1,0 +1,32 @@
+ <!–– html code -->
+
+ <button id="api-prompt" class="btn btn-success" style="visibility:hidden">Press me API Entry Button</button>
+ 
+ //JavaScript code
+ 
+ <script>
+ 
+  window.onload = function exampleFunction() {
+      let APIKeyVar = null;	
+      const promptBtn = document.getElementById('api-prompt');
+      let listener = function(){
+        APIKeyVar = prompt('Enter your your API KEY?');
+        if(APIKeyVar) {
+          alert('you entered ' + APIKeyVar + ', lets see if it is valid!');
+          fetchS3Data();
+        }
+      };
+      promptBtn.addEventListener('click',listener);
+
+      function showPromptBox() {
+        document.getElementById('api-prompt').style.visibility = 'visible';
+      }
+	  
+ </script>
+ 
+ // Set Header
+ 
+var x = new XMLHttpRequest();
+
+x.open("GET", "<YOUR-API-ENDPOINT-HERE>", true);
+x.setRequestHeader("x-api-key", APIKeyVar)
