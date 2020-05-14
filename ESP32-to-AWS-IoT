@@ -128,7 +128,7 @@ void loop() {
 
   pubSubCheckConnect();
 
-   char fakeData[100];
+   char fakeData[128];
 //choose your own number of variables and data types, but avoid data buffer overload
 
   float var1 =  random(55,77); //fake number range, adjust as you like
