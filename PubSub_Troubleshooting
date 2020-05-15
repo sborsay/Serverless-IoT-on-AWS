@@ -1,6 +1,17 @@
 If your data payload coming to or from the device via MQTT PubSUB  isn't coming through, it may be your sprintf char buffer
 is too large (exceeds 128 chars), issue is discussed here:  https://github.com/knolleary/pubsubclient/issues/110
 
+To view your current buffer size; example below:
+
+//------------------------------------------
+int bufferSizeTest = snprintf(fakeData, sizeof(fakeData), "{\"uptime\":%lu,\"temp\":%d,\"humid\":%d,\"lattitude\":%2.7f,\"longitude\":%3.7f}", millis() / 1000, t, h, latt, lon );
+
+Serial.println('\n');
+Serial.println(bufferSizeTest);
+Serial.println('\n');
+//-------------------------------------------
+
+
 to fix this problem see below:
 
 Arduino-->libraries-->PubSub folder-->src-->PubSubClient.h
