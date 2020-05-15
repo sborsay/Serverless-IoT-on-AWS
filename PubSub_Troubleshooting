@@ -3,7 +3,7 @@ is too large (exceeds 128 chars), issue is discussed here:  https://github.com/k
 
 to fix this problem see below:
 
-Arduino-->libraries-->PubSub folder-->PubSubClient.h
+Arduino-->libraries-->PubSub folder-->src-->PubSubClient.h
 
 change-->
 
