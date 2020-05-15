@@ -126,9 +126,11 @@ void loop() {
 
   pubSubCheckConnect();
 
-  char fakeData[256];
-  int t =  random(30,110); //fake number range, adjust as you like
-  int h =  random(40,100);
+  //If you need to increase buffer size, then you need to change MQTT_MAX_PACKET_SIZE in PubSubClient.h
+  char fakeData[128];
+  
+  int t =  random(30,95); //fake number range, adjust as you like
+  int h =  random(50,95);
  
   snprintf(fakeData, sizeof(fakeData),"{\"temperature\":%d,\"humidity\":%d}", t, h);
 
