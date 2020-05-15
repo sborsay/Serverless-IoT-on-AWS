@@ -159,8 +159,9 @@ void loop() {
   //Add a JSON package of fake data to deliver to AWS IoT
   //Uses snprintf but other viable options are: sprintf, strcpy, strncpy, or
   //Use the ArduinoJson library for Efficient JSON serialization
+  //If you need to increase buffer size you need to change MQTT_MAX_PACKET_SIZE in PubSubClient.h
   char fakeData[128];
-//choose your own number of variables and data types, but avoid data buffer size overload
+
   float var1 =  random(55,77); //fake number range, adjust as you like
   float var2 =  random(77,99);
   sprintf(fakeData,  "{\"uptime\":%lu,\"temperature\":%f,\"humidity\":%f}", millis() / 1000, var1, var2);
