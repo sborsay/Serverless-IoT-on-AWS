@@ -1,0 +1,21 @@
+If your data payload coming to or from the device via MQTT PubSUB  isn't coming through, it may be your sprintf char buffer
+is too large (exceeds 128 chars), issue is discussed here:  https://github.com/knolleary/pubsubclient/issues/110
+
+to fix this problem see below:
+
+Arduino-->libraries-->PubSub folder-->PubSubClient.h
+
+change-->
+
+// MQTT_MAX_PACKET_SIZE : Maximum packet size
+#ifndef MQTT_MAX_PACKET_SIZE
+#define MQTT_MAX_PACKET_SIZE 128
+#endif
+
+
+to-->
+
+// MQTT_MAX_PACKET_SIZE : Maximum packet size
+#ifndef MQTT_MAX_PACKET_SIZE
+#define MQTT_MAX_PACKET_SIZE 512
+#endif
