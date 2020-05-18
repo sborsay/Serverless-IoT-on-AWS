@@ -165,8 +165,6 @@ void loop() {
   if (millis() - lastPublish > 10000) {
     String msg = String("Hello from ESP8266: ") + ++msgCount;
 
-   pubSubClient.publish("outTopic", fakeData);
-   Serial.print("Published: "); Serial.println(fakeData);
     lastPublish = millis();
   }
 }
