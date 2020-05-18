@@ -186,7 +186,8 @@ void pubSubCheckConnect() {
                                                  //ClientID's here. Recommneded: Pub and Sub they their have own registered 'Thing'
     }
     Serial.println(" connected");
-    pubSubClient.subscribe("$aws/things/<YOUR-THING-NAME>/shadow/update/accepted");
+    pubSubClient.subscribe("$aws/things/<YOUR-THING-NAME>/shadow/update/accepted"); //Here 'Thing' in the topic name MUST be shared
+                                                                                    //between Publisher & Subsciber
    
   }
   pubSubClient.loop();
