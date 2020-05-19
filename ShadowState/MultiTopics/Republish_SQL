@@ -1,0 +1,8 @@
+republish topic Acion from AWS IoT Core
+
+
+
+SELECT state.reported.humidity as Alert FROM '$aws/things/<YOUR-THING-HERE>/shadow/update' WHERE state.reported.humidity > 80
+
+
+redirect topic $aws/things/<YOUR-THING-HERE>/shadow/update ---> to -->  alert/highHumid
