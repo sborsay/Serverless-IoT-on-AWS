@@ -171,7 +171,7 @@ void loop() {
   float Hum =  random(77,99);
   char *  Mes = "empty";
 //sprintf(fakeData,  "{\"uptime\":%lu,\"temperature\":%f,\"humidity\":%f}", millis() / 1000, Tem, Hum);
-sprintf(fakeData,"{\"state\": {\"desired\": {\"uptime\": %lu, \"temperature\": %f, \"humidity\": %f, \"message\": \"%s\" }}}",millis()/1000,Tem, Hum,Mes); 
+sprintf(fakeData,"{\"state\": {\"reported\": {\"uptime\": %lu, \"temperature\": %f, \"humidity\": %f, \"message\": \"%s\" }}}",millis()/1000,Tem, Hum,Mes); 
 
 
   
