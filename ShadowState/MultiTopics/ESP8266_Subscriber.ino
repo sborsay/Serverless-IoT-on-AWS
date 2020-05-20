@@ -203,24 +203,20 @@ void msgReceived(char* topic, byte* payload, unsigned int length) {
     }
     Serial.println();
     
-     char * pch=strtok(buff," ,");  //delimiters are empty space and comma, this delimits first token
+     char * pch=strtok(buff," ,");  //delimiters are empty space and comma, this delimits the first token
      int counter1 = 0;
      char *tokArray[20]; //number of tokenized elements in new array
     while (pch != NULL)
   {
- //printf ("%s\n",pch);  //uncomment this to see all tokens in each loop
+     //printf ("%s\n",pch);  //uncomment this to see all tokens in each loop
      pch = strtok (NULL, " ,"); //delimit remaining tokens
      tokArray[counter1++] = pch;
    //  Serial.println(counter1);    //uncomment this to mark string token position
   }
- 
-   // tokArray[counter1] = NULL;
 
+  char * posArray[3] = { tokArray[0] + 14 };  //alter to grab different tokens and positions
   Serial.print("here is the temperature array element: ");
-  Serial.println(tokArray[0] + 14);  //move 14 bytes/chars over from beggering of token 
-
-  char * posArray[3] = { tokArray[0] + 14 };  //grab the 4 chars from where the number is
-  //Serial.println(*posArray);
+  Serial.println(tokArray[0] + 14);  
 
   int tempInt = atoi(*posArray); 
 
