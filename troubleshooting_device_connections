@@ -7,10 +7,10 @@ Troubleshooting ESP8266 and ESP32 connection issues.
 
 3.  Make sure your onboard device certificates match your AWS IoT Core region, the x509 should be fungible between regions
 
-4.  Dont overflow your Char or sprintf or snprintf buffer.  MQTT requires payloads get sent by time and size over cycles.
-    if you overload the buffer it may seg fault.  If you make an extended payload use short names like (t,h, lat) and small data types
-    you can always convert these variable abbreviations to longer, explicit names once on the cloud.  You can slo increase the
-    size of your MQTT BUffer by changing the value of MQTT_MAX_PACKET_SIZE in PubSubClient.h from 128 to 512
+4.  Dont overflow your Char, sprintf, or snprintf buffer.  MQTT requires payloads get sent by time and size over cycles.
+    if you overload the buffer it may not transmit or receive the payload.  If you make an extended payload use short names like (t,h, lat)
+    and small data types you can always convert these variable abbreviations to longer, explicit names once on the cloud.  You
+    can slo increase the size of your MQTT BUffer by changing the value of MQTT_MAX_PACKET_SIZE in PubSubClient.h from 128 to 512
 
 5.  If you aren't receiving your devices payload under your subscription topic in AWS IoT Core in the "test" tab, then go to the "Monitor" tab
  and see if your device is even connecting.  Often a device is actually connecting, but the payload isn't being received, the reason for this 
