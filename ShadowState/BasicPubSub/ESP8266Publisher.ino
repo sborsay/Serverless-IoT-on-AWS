@@ -164,7 +164,6 @@ void loop() {
 
   //Add a JSON package of fake data to deliver to AWS IoT
   //Uses snprintf but other viable options are: sprintf, strcpy, strncpy, or
-  //Use the ArduinoJson library for Efficient JSON serialization
   char fakeData[128];
 //choose your own number of variables and data types, but avoid data buffer size overload
   float Tem =  random(55,77); //fake number range, adjust as you like
