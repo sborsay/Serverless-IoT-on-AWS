@@ -1,10 +1,5 @@
 Troubleshooting ESP8266 and ESP32 connection issues.
 
-A)
-Fatal Error Occurred: “Failed to connect to ESP32: Timed out waiting for packet header” error when trying to upload new code to your ESP32
-board. Some ESP32 development boards don’t go into flashing/uploading mode automatically when uploading a new code. 
-to solve this hold-down the “BOOT/FLASH” button (NOT EN/RESET) then release it while it is trying to connect
-
 
 1.  Make sure you are on a 2.4GHz network not 5GHz, the device only communicates at 2.4GHz
 
@@ -21,3 +16,8 @@ to solve this hold-down the “BOOT/FLASH” button (NOT EN/RESET) then release 
  and see if your device is even connecting.  Often a device is actually connecting, but the payload isn't being received, the reason for this 
  is usually a problem with your device certificates.  The device will connect but the payload wont pass through if your device certificates
  aren't exactly correct.
+ 
+ A)
+Fatal Error Occurred: “Failed to connect to ESP32: Timed out waiting for packet header” error when trying to upload new code to your ESP32
+board. Some ESP32 development boards don’t go into flashing/uploading mode automatically when uploading a new code. 
+to solve this hold-down the “BOOT/FLASH” button (NOT EN/RESET) then release it while it is trying to connect
