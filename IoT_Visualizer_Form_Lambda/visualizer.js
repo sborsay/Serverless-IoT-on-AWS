@@ -1,4 +1,4 @@
-setTimeout(function() { myChart.update(); },1000); //wait a second to laod our data to avoid a manual refresh
+
 var loadChart = function(uptime, temperature, humidity) {
     var ctx = $('#myChart');
 
