@@ -46,7 +46,7 @@ $(function() {    // all jquery should be in "$(function() { }) document ready f
                 temperature.push(jsonFile.temperature)
                 humidity.push(jsonFile.humidity)
 
-                //  $ajax by default asychrounous so, myChart.update() should update after get success valid respose
+                //  $ajax by default asychrounous so, myChart.update() should update after success and response
                 myChart.update();
                 //---------------------------------------//
             },
