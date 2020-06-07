@@ -1,8 +1,8 @@
-
+var myChart;  // it should be global, otherwise it will be create "javascript execution context" issue
 var loadChart = function(uptime, temperature, humidity) {
     var ctx = $('#myChart');
 
-    var myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: uptime,
@@ -23,12 +23,6 @@ var loadChart = function(uptime, temperature, humidity) {
                 }
             ]
         },
-        options: {
-            title: {
-                display: true,
-                text: 'Uptime',
-                position: 'bottom'
-            }
-        }
+        options: {}
     });
 }
