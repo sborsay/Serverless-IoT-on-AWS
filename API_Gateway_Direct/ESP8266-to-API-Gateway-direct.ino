@@ -68,7 +68,6 @@ void setup() {
     Serial.println("connection failed");
     return;
   }
-  //String url = "/dep1";
   
   Serial.print("requesting URL: ");
   Serial.println(url);
