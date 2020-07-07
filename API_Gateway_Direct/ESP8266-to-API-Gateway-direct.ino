@@ -28,7 +28,7 @@
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
-const char* host = "https://<YOUR-API-GATEWAY-ENDPOINT>.execute-api.<YOUR-REGION>.amazonaws.com";
+const char* host = "<YOUR-API-GATEWAY-ENDPOINT>.execute-api.<YOUR-REGION>.amazonaws.com";
 String url = "<YOUR-API-GATEWAY-DEPLOYMENT-NAME>";
 
 const int httpsPort = 443;
