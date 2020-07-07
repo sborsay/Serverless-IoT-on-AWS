@@ -14,8 +14,7 @@
 
     * This example modified by Stephen Borsay for AWS Serverless course on Udemy
     * to Connect your device directly to AWS API Gateway
-    * modified for sending fake data buffer, connect any sensor as desired
-    * 
+    *connect any sensor as desired 
 */
 
 #include <ESP8266WiFi.h>
