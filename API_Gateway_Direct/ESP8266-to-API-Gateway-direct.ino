@@ -34,9 +34,8 @@ String url = "<YOUR-API-GATEWAY-DEPLOYMENT-NAME>";
 const int httpsPort = 443;
 unsigned long uptime;
 
-// Use web browser to view and copy      
-// SHA1 fingerprint of the certificate //98f85efc876543f0fc11efee981c99cc843274c example thumprint unseperated
-//const char fingerprint[] PROGMEM = "98 f8 5e fc 87 65 43 4f 0f c1 1e fe e9 81 c9 9c c8 43 27 4c"; //example thumbprint with proper formatting
+// Use Chromeweb browser to view and copy:  tools-->developer tools-->security-->view certificate-->details(tab)-->thumbprint
+// SHA1 fingerprint of the certificate //98 f8 5e fc 99 65 43 f0 fc 22 ef ee 98 1c 99 cc 84 32 74c example thumprint unseperated
 const char fingerprint[] PROGMEM = "<YOUR-SHA-THUMBPRINT>";
 
  WiFiClientSecure client;
