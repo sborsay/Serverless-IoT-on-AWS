@@ -29,14 +29,14 @@
 
 const char* ssid = STASSID;
 const char* password = STAPSK;
-const char* host = "<YOUR-API-GATEWAY-ENDPOINT>.execute-api.<YOUR-REGION>.amazonaws.com";
+const char* host = "<YOUR-API-GATEWAY-ENDPOINT>.execute-api.<YOUR-REGION>.amazonaws.com";   //do not include "https://"
 String url = "<YOUR-API-GATEWAY-DEPLOYMENT-NAME>";
 
 const int httpsPort = 443;
 unsigned long uptime;
 
 // Use Chromeweb browser to view and copy:  tools-->developer tools-->security-->view certificate-->details(tab)-->thumbprint
-// SHA1 fingerprint of the certificate //98 f8 5e fc 99 65 43 f0 fc 22 ef ee 98 1c 99 cc 84 32 74c example thumprint unseperated
+// SHA1 fingerprint of the certificate //98 f8 5e fc 99 65 43 f0 fc 22 ef gr 98 1c 99 cc 84 32 74c example thumprint unseperated
 const char fingerprint[] PROGMEM = "<YOUR-SHA-THUMBPRINT>";
 
  WiFiClientSecure client;
