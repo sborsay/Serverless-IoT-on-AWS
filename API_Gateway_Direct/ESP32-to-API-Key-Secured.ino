@@ -18,7 +18,7 @@ const char* ssid = "<YOUR-2.4GHz-WIFI_NETWORK>";
 const char* password = "<YOUR-PASSWORD>";
 
 //Your Domain name with URL path or IP address with path
-String serverName = "https://h2ff645sc.execute-api.us-east-2.amazonaws.com/deploymentA"; //aws API Gateway url
+String serverName = "https://h2ff645sc.execute-api.us-east-2.amazonaws.com/deploymentA"; //aws API Gateway url, Need htps:// pre-fix for ESP32 sketch
 const char* API_KEY = "mnCvfHgNtiFgRtn71DHn8EcUBEhcFBfcY0JnJ50"; //Your AWS API-Key
 
 // the following variables are unsigned longs because the time, measured in
