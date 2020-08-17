@@ -8,3 +8,10 @@ aws --region us-west-2 iot-data publish --topic "myTopic" --cli-binary-format ra
 //Place entire command ON ONE LINE!
 
 aws2 --region us-west-2 iot-data publish --topic "myTopic" --cli-binary-format raw-in-base64-out --payload "{\"uptime\": 123,\"temp\": 44,\"humidity\": 33}"
+
+
+
+//alternate for multiline command
+
+aws2 --region us-west-2 iot-data publish --topic "myTopic" --cli-binary-format raw-in-base64-out ^
+ --payload "{\"uptime\": 123,\"temp\": 44,\"humidity\": 33}"
