@@ -1,23 +1,41 @@
+
+
 Troubleshooting ESP8266 and ESP32 connection issues.
 
 
-1.  Make sure you are on a 2.4GHz network not 5GHz, the device only communicates at 2.4GHz
+1A.  Make sure you are on a 2.4GHz network not 5GHz, the device only communicates at 2.4GHz
 
-2.  Make sure port 8883 isn't being blocked by your network admin, this is the port that MQTT(s) communicates on to AWS
+1B.  Make sure the your device AWS endpoint region matches the current AWS region in your console on the browser
 
-3.  Make sure your onboard device certificates match your AWS IoT Core region (the x509 rootCA  is interchangable between regions)
+2.  Make sure port 8883 isn't being blocked by your network admin, this is the port that MQTT(s) traditionally communicates,
+    AWS IoT Core requires you send MQTT data over secure port 8883 or 443
 
-4.  Dont overflow your Char, sprintf, or snprintf buffer.  MQTT requires payloads get sent by time and size over cycles.
-    if you overload the buffer it may not transmit or receive the payload.  If you make an extended payload use short names like (t,h, lat)
-    and small data types you can always convert these variable abbreviations to longer, explicit names once on the cloud.  You
-    can slo increase the size of your MQTT BUffer by changing the value of MQTT_MAX_PACKET_SIZE in PubSubClient.h from 128 to 512
+3.  Make sure your onboard device certificates match your AWS IoT Core region, the x509 should be fungible between regions
 
-5.  If you aren't receiving your devices payload under your subscription topic in AWS IoT Core in the "test" tab, then go to the "Monitor" tab
- and see if your device is even connecting.  Often a device is actually connecting, but the payload isn't being received, the reason for this 
- is usually a problem with your device certificates.  The device will connect but the payload wont pass through if your device certificates
- aren't exactly correct.
- 
- A)
-Fatal Error Occurred: “Failed to connect to ESP32: Timed out waiting for packet header” error when trying to upload new code to your ESP32
-board. Some ESP32 development boards don’t go into flashing/uploading mode automatically when uploading a new code. 
-to solve this hold-down the “BOOT/FLASH” button (NOT EN/RESET) then release it while it is trying to connect
+4.  Make sure you attached an AWS IoT Policy to your security certificates.  If you have not you will see the connection on the 
+    monitor tab but no data will appear on the MQTT test console.
+
+5.  Don't exceed your Char, sprintf, or snprintf buffer.  MQTT requires payloads get sent by time and size over cycles.
+    if you overload the buffer it may not transmit or receive the payload.   To solve this issue for large payloads you
+    can also increase the size of your MQTT BUffer by changing the value of MQTT_MAX_PACKET_SIZE in PubSubClient.h from 128 to 512.
+    to solve this issue.  This bigger payload allocation will allow longer variable names to transmit.  If you use the alternate ESP32
+    In the alternate ESP32 sketch on my github the buffer is set to 512 automatically by this line:  MQTTClient client = MQTTClient(512);
+    This alternate ESP32 sketch uses a different PubSub/MQTT library but operates fundamentally in the same way
+
+6.  If you aren't receiving your devices payload under your subscription topic in AWS IoT Core in the "test" tab,
+    then go to the "Monitor" tab and see if your device is even connecting.  Often a device is actually connecting,
+    but the payload isn't being received, the reason for this  is usually a problem with your device certificates.
+    The device will connect but the payload wont pass through if your device certificates aren't exactly correct.
+    If your device isn't even ahowing up in the Monitor then it is likely a hardware issue not a certificate issue.
+    Confirm you are using the correct virtulization package or board manager for your device.
+
+----------------------------------------------------------------------------
+Some older or cheaper ESP32 Boards:
+
+Connecting........_____....._____....._____....._____....._____....._____....._____....._____....._____....._____
+A fatal error occurred: Failed to connect to ESP32: Timed out waiting for packet header
+
+Solution:
+while connecting holding down the Boot/EN button for one second initiates the firmware download mode
+BOOT = FLASH: if you hold it down and press the EN/RST, your ESP32 will restart in flashing/uploading mode
+Do not press the RESET Button
