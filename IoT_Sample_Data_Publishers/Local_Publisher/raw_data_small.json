@@ -1,0 +1,72 @@
+[
+  {
+    "data": {
+      "co": 0.004565749630211374,
+      "humidity": 58.20000076293945,
+      "light": true,
+      "lpg": 0.007210160263049861,
+      "motion": false,
+      "smoke": 0.019158003725736547,
+      "temp": 27
+    },
+    "device_id": "5e:44:3b:f3:79:c8",
+    "ts": 1594598726.5393324,
+    "device": "iot-device-02"
+  },
+  {
+    "data": {
+      "co": 0.005640155186117315,
+      "humidity": 51.7,
+      "light": false,
+      "lpg": 0.008401139747010787,
+      "motion": false,
+      "smoke": 0.0225564297132387,
+      "temp": 21.8
+    },
+    "device_id": "f3:6b:f4:34:c0:17",
+    "ts": 1594598727.0699694,
+    "device": "iot-device-03"
+  },
+  {
+    "data": {
+      "co": 0.00562960786515339,
+      "humidity": 51.8,
+      "light": false,
+      "lpg": 0.008389771780906241,
+      "motion": false,
+      "smoke": 0.022523828027317963,
+      "temp": 21.8
+    },
+    "device_id": "f3:6b:f4:34:c0:17",
+    "ts": 1594598730.7578712,
+    "device": "iot-device-03"
+  },
+  {
+    "data": {
+      "co": 0.004517441200106276,
+      "humidity": 58.20000076293945,
+      "light": true,
+      "lpg": 0.007154892140546869,
+      "motion": false,
+      "smoke": 0.01900118011334872,
+      "temp": 27
+    },
+    "device_id": "5e:44:3b:f3:79:c8",
+    "ts": 1594598731.4282842,
+    "device": "iot-device-02"
+  },
+  {
+    "data": {
+      "co": 0.005579086079598496,
+      "humidity": 51.9,
+      "light": false,
+      "lpg": 0.00833523713478488,
+      "motion": false,
+      "smoke": 0.0223674724804285,
+      "temp": 21.8
+    },
+    "device_id": "f3:6b:f4:34:c0:17",
+    "ts": 1594598734.4455285,
+    "device": "iot-device-03"
+  }
+]
