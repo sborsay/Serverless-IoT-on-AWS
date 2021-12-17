@@ -1,8 +1,10 @@
+//If this prublishes twice see other function in same directory
+
 var AWS = require('aws-sdk');
 
 var iotdata = new AWS.IotData({endpoint: '<YOUR-AWS-IOT-ENDPOINT-HERE>' });
 
-exports.handler = /*async*/ (event) => {
+exports.handler = async (event) => {
     console.log("The event object is: " + JSON.stringify(event));
     var params = {
         topic: "<Your-Topic-Here>", //intopic_thing_7
@@ -17,5 +19,5 @@ exports.handler = /*async*/ (event) => {
         else {
             console.log("Success");
         }
-    })//.promise(); //https://aws.amazon.com/blogs/developer/support-for-promises-in-the-sdk/
+    }).promise(); //https://aws.amazon.com/blogs/developer/support-for-promises-in-the-sdk/
 };
