@@ -59,7 +59,7 @@ let myChart = Highcharts.chart('container1', {
 let getWheatherData = function () {
     $.ajax({
         type: "GET",
-        url: "<Insert-Your-IoT-Data-Bucket-Here>",
+        url: "<Insert-Your-IoT-Data-Bucket-With-Key-Here>",  //example: https://mydatabucket.s3.amazonaws.com/myKey"
         dataType: "json",
         async: false,
         success: function (data) {
