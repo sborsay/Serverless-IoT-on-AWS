@@ -1,1 +1,1 @@
-SELECT *, timestamp() AS timestamp FROM '<Your-Topic-Here>'
+SELECT *, timestamp() AS timestamp FROM '<Your-incoming-IoT-Topic-Here>'
