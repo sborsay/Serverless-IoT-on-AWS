@@ -1,0 +1,1 @@
+SELECT *, timestamp() AS timestamp FROM 'outTopic'
