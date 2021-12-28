@@ -58,7 +58,7 @@ let myChart = Highcharts.chart('container1', {
 });
 
 
-const socket = new WebSocket('wss://<Your-Websockets-Endpoint-Here>')
+const socket = new WebSocket('wss://<Your-Websockets-Endpoint-Here>') //example: 'wss://3143544j.execute-api.us-east-1.amazonaws.com/production'
 
 socket.addEventListener('open', event => {
   console.log('WebSocket is connected, now check for your new Connection ID in Cloudwatch on AWS')
