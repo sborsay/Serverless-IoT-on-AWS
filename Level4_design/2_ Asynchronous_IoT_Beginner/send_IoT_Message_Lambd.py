@@ -11,3 +11,5 @@ def lambda_handler(event, context):
     IoT_Message = json.dumps(event)
     connectionId = "<Your-ConnectionID-From-CloudWatch-Here>" #must manually enter for this beginner version
     response = client.post_to_connection(ConnectionId = connectionId, Data = IoT_Message)
+    
+    #Don't forget to add 'ExecuteAPI' to your permissions as inline policy for this lambda function
