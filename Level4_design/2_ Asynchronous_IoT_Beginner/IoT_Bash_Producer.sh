@@ -1,4 +1,5 @@
 #!/bin/bash
+#Provided by AWS
 
 mqtttopic='iot/ggg'
 iterations=10
