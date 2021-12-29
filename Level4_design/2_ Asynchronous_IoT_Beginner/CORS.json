@@ -10,6 +10,6 @@
             "*"
         ],
         "ExposeHeaders": [],
-        "MaxAgeSeconds": 3000
+        "MaxAgeSeconds": 6000
     }
 ]
