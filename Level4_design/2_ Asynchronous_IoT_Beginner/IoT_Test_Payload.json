@@ -1,5 +1,18 @@
+Test For Lambda
+
+
+
 {
   "temperature": 55,
   "humidity": 66,
   "timestamps": 12345
 }
+
+
+Test for IoT Core (Our RQS adds Timestamps for us)
+
+{
+  "temperature": 77,
+  "humidity": 88
+}
+
