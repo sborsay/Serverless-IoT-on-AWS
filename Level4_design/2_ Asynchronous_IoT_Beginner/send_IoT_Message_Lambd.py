@@ -7,7 +7,6 @@ import boto3
  
  Test_Message = json.dumps({ "message": "Hello from lambda, hardcoded test message"})
 
-
 def lambda_handler(event, context):
     print(event) 
     IoT_Message = json.dumps(event)
