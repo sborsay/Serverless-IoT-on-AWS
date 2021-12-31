@@ -3,15 +3,18 @@
 import json
 import boto3
 Websocket_HTTPS_URL = "<Insert-Https-Websocket-Endpoint-Here-With-Prefix>"
+
 client = boto3.client("apigatewaymanagementapi", endpoint_url = Websocket_HTTPS_URL)
 ssm_Client = boto3.client('ssm')
+
+response_ssm = ssm_Client.get_parameter(Name='connection_Identification')
+connectionId =  response_ssm['Parameter']['Value']   #dig into the response blob to get our string value
+
+Test_Message = json.dumps({ "message": "Hello from lambda, hardcoded test message"})
 
 
 def lambda_handler(event, context):
     print(event) 
-    response_ssm = ssm_Client.get_parameter(Name='connection_Identification')
-    connectionId =  response_ssm['Parameter']['Value']   #dig into the response blob to get our string value
-    Test_Message = json.dumps({ "message": "Hello from lambda, hardcoded test message"})
     IoT_Message = json.dumps(event)
     #AWS post_to_connection API requires 'key=value' arguments
     response = client.post_to_connection(ConnectionId = connectionId, Data = IoT_Message)
