@@ -1,1 +1,1 @@
-## These lambdas were developed but not used due to a simplier and more effective solution using the AWS Sytems Manager Paramter Store for Connection ID rather than messaging the connection ID between Lambdas via MQTT topics
+## These lambdas were developed but not used due to a more simple and more effective solution using the AWS Sytems Manager Paramter Store for saving Connection ID rather than messaging the connection ID between Lambdas via MQTT topics
