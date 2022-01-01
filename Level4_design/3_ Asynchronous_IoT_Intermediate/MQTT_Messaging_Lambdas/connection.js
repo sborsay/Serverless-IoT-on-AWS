@@ -7,7 +7,7 @@ const api = new AWS.ApiGatewayManagementApi({
 const iotdata = new AWS.IotData({endpoint: '<Paste-Your-IoT-Endpoint-Here>' }); 
 
 //using asych here and in return/romise function works to establish persistetnt connection
-//however it sends topic twice
+//however it sends twice
 //making function nonasych to send topic once by removing async  and promise()
 //means external websocket connection will never work
     
@@ -19,7 +19,7 @@ exports.handler =  async (event,context) => {
     
  
    var params = {
-       topic: 'outTopic',
+       topic: 'iot/whatever',
        payload: JSON.stringify(connectionId),
        qos: 0
   }
@@ -29,6 +29,9 @@ exports.handler =  async (event,context) => {
   }
 }
 
+//Publish connection ID to AWS IoT Core
+//Message is then consumed by snediotpayload.py python function
+//as incoming event under topic iot/#
 
 const publishMessage = async (params) => {
   return new Promise((resolve, reject) => {
