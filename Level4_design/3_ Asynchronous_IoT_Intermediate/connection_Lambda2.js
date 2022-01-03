@@ -29,7 +29,7 @@ var mySSM_request = await mySSM_Client.putParameter(params, function(err, data) 
   if (err) console.log(err, err.stack); // an error occurred
   else     console.log("success: ", data);           // successful response
 }).promise()
-//var mySSM_request = await mySSM_Client.putParameter(params).promise(); //should also work; sans padantic
+//var mySSM_request = await mySSM_Client.putParameter(params).promise(); //should also work; sans padantic if err else
 
 console.log("My request: ", mySSM_request)
 
