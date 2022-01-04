@@ -17,13 +17,13 @@ exports.handler = async (event, context) => {
  
 //-----------------Begin SSM Code
 
+//https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SSM.html#putParameter-property
 var params = {
   Name: '<Insert-Your-SSM-Parameter-Name-Here>',
   Value: connectionId,
   Overwrite: true  //not required but default is False
 };
 
-//https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SSM.html#putParameter-property
 //await and promise() stub are not documented but neccessary for function to work -  UNFORTUNATELY
 var mySSM_request = await mySSM_Client.putParameter(params, function(err, data) {
   if (err) console.log(err, err.stack); // an error occurred
