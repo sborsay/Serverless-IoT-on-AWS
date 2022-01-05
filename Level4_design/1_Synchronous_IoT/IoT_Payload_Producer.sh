@@ -33,7 +33,7 @@ for (( i = 1; i <= $iterations; i++)) {
   #echo "vibration: $VIBRATION"
 
  #use below for AWS CLI V1
- #aws iot-data publish --topic "$mqtttopic" --payload "{\"temperature\":$temperature,\"humidity\":$humidity}":$VIBRATION}" --profile "$profile" --region "$region"
+ #aws iot-data publish --topic "$mqtttopic" --payload "{\"temperature\":$temperature,\"humidity\":$humidity}" --profile "$profile" --region "$region"
  
  #use below for AWS CLI V2
  aws iot-data publish --topic "$mqtttopic" --cli-binary-format raw-in-base64-out --payload "{\"temperature\":$temperature,\"humidity\":$humidity}" --profile "$profile" --region "$region"
