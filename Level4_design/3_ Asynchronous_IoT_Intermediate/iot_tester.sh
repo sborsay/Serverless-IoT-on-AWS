@@ -1,9 +1,9 @@
 #!/bin/bash
 
-mqtttopic='<Your-Topic-Here>'
+mqtttopic='<Insert-Your-IoT-Topic-Here>'
 iterations=10
-wait=2
-region='<Your-Region-Here>'
+wait=5
+region='<Insert-Your-AWS-Test-Region_Here>'
 profile='default'
 
 for (( i = 1; i <= $iterations; i++)) {
@@ -33,7 +33,7 @@ for (( i = 1; i <= $iterations; i++)) {
   #echo "vibration: $VIBRATION"
 
  #use below for AWS CLI V1
- #aws iot-data publish --topic "$mqtttopic" --payload "{\"deviceid\":\"$DEVICE\",\"current_ts\":$CURRENT_TS,\"flow\":$FLOW,\"temp\":$TEMP,\"humidity\":$HUMIDITY,\"vibration\":$VIBRATION}" --profile "$profile" --region "$region"
+ #aws iot-data publish --topic "$mqtttopic" --payload "{\"temperature\":$temperature,\"humidity\":$humidity}" --profile "$profile" --region "$region"
  
  #use below for AWS CLI V2
  aws iot-data publish --topic "$mqtttopic" --cli-binary-format raw-in-base64-out --payload "{\"temperature\":$temperature,\"humidity\":$humidity}" --profile "$profile" --region "$region"
