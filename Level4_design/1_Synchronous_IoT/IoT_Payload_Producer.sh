@@ -1,9 +1,9 @@
 #!/bin/bash
 
-mqtttopic='<Insert-Your-IoT-Topic-Here>'
+mqtttopic='<Insert-Your-IoT-Topic-Here>' #Example: 'outTopic'
 iterations=10
 wait=5
-region='<Insert-Your-AWS-Test-Region_Here>'
+region='<Insert-Your-AWS-Test-Region_Here>' #Example: 'us-east-1'
 profile='default'
 
 for (( i = 1; i <= $iterations; i++)) {
