@@ -2,6 +2,7 @@
 
 const AWS = require('aws-sdk') 
 
+//ApiGatewayManagementApi is unused and uneeded for this lambda to work,  but available for future use.
 const api = new AWS.ApiGatewayManagementApi({
   endpoint: '<Insert-Websocket-Endpoint-Here-Without-Prefix>' 
 })
