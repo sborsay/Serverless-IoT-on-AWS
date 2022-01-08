@@ -1,8 +1,8 @@
 #!/bin/bash
 
 mqtttopic='<Insert-Your-IoT-Topic-Here>' #Example: iot/kjhawd'
-iterations=10
-wait=5
+iterations=50
+wait=2
 region='<Insert-Your-AWS-Test-Region_Here>' #Example: 'us-east-1'
 profile='default'
 
