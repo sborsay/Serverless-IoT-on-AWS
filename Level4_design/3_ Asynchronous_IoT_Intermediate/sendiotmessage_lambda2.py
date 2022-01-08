@@ -9,7 +9,7 @@ ssm_Client = boto3.client('ssm')
 
 def lambda_handler(event, context):
     print(event) 
-    response_ssm = ssm_Client.get_parameter(Name='<Insert_ConnectionId-Parameter-Name-Here>')
+    response_ssm = ssm_Client.get_parameter(Name='<Insert-Your-SSM-Parameter-Name-Here>')
     print("my stored connection id: ", response_ssm['Parameter']['Value'] )
     connectionId =  response_ssm['Parameter']['Value']  #dig into the response blob to get our string cvalue
     Test_Message = json.dumps({ "message": "Hello from lambda, hardcoded test message"})
