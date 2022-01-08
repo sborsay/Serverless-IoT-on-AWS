@@ -80,7 +80,7 @@ let drawChart = function (data) {
 	
 var IoT_Payload = JSON.parse(data);
 console.log("our json object", IoT_Payload);
-console.log(IoT_Payload.temperature);
+//console.log(IoT_Payload.temperature);
 
 
     let { humidity, temperature, timestamps } = IoT_Payload;
