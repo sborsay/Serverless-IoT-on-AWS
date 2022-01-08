@@ -1,6 +1,8 @@
 
 const AWS = require('aws-sdk')
 
+
+//ApiGatewayManagementApi is unused and uneeded for this lambda to work,  but available for future use.
 const api = new AWS.ApiGatewayManagementApi({
   endpoint: '<Your-WSS-Endpoint-Here-Without-WSS:-Prefix>'   //endpoint example: '1kn34f5ngfu.execute-api.ap-northeast-2.amazonaws.com/production'
 })
