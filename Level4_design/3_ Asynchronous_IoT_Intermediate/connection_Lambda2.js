@@ -3,10 +3,12 @@
 const AWS = require('aws-sdk') 
 
 //ApiGatewayManagementApi is unused and uneeded for this lambda to work,  but available for future use.
+/*
 const api = new AWS.ApiGatewayManagementApi({
   endpoint: '<Insert-Websocket-Endpoint-Here-Without-Prefix>' 
 })
 //endpoint example: //ex: '1kn0w3ung7u.execute-api.ap-northeast-2.amazonaws.com/production'
+*/
 
 var mySSM_Client = new AWS.SSM();   //create new client object of System Manager Class
 
