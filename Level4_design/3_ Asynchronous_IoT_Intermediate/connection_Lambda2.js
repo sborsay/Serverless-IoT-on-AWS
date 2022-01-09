@@ -1,4 +1,4 @@
-//Extra Permission required:  APIExecute & SSM (search 'system' in inline policys)
+//Extra Permission required:   SSM - Systemems Manager (search 'system' in inline policys)
 
 const AWS = require('aws-sdk') 
 
