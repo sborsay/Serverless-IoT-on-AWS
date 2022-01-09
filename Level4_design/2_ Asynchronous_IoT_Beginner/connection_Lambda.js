@@ -7,6 +7,7 @@ const AWS = require('aws-sdk')
 const api = new AWS.ApiGatewayManagementApi({
   endpoint: '<Your-websocket-Endpoint-Here-Without--Prefix>'   //endpoint example: '1kn34f5ngfu.execute-api.ap-northeast-2.amazonaws.com/production'
 })
+//endpoint example: //ex: '1kn0w3ung7u.execute-api.ap-northeast-2.amazonaws.com/production'
 */
 
 exports.handler = async (event, context) => {
