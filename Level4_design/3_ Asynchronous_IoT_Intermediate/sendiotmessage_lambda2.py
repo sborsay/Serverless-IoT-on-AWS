@@ -15,4 +15,5 @@ def lambda_handler(event, context):
     Test_Message = json.dumps({ "message": "Hello from lambda, hardcoded test message"})
     IoT_Message = json.dumps(event)
     #AWS API Gateway API's require 'key=value' arguments
+    #https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apigatewaymanagementapi.html#ApiGatewayManagementApi.Client.post_to_connection
     response = client.post_to_connection(ConnectionId = connectionId, Data = IoT_Message)
