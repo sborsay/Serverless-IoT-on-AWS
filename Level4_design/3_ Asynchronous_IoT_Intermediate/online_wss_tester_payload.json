@@ -1,0 +1,7 @@
+{
+	"action": "message",
+	"data": {
+		"temperature": 55,
+		"humidity": 13
+	}
+}
