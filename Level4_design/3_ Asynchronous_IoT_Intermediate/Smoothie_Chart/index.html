@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Smoothie Chart</title>
+    <script type="text/javascript" src="smoothie.js"></script>
+  </head>
+  <body>
+
+    <h1>Serverless Asynchronous AWS IoT with WebSockets</h1>
+
+    <canvas id="mycanvas" width="1000" height="800"></canvas>
+
+    <script type="text/javascript">
+
+
+const socket = new WebSocket('wss://<Your-AWS-WSS-Endpoint_Here>/production')
+
+socket.addEventListener('open', event => {
+  console.log('WebSocket is connected, now check for your new Connection ID in Cloudwatch and the Parameter Store on AWS')
+})
+
+  socket.addEventListener('message', event => {
+	
+	console.log('Your iot payload is:', event.data);
+    //drawChart(event.data);  //Bar Graph
+   // drawChart2(event.data); //Temperature F
+   // drawChart3(event.data); //Humidity index %
+   // drawChart4(event.data); //Timestamps
+   var IoT_Payload = JSON.parse(event.data);
+   console.log("ourr json object", IoT_Payload);
+
+   sendData( IoT_Payload.temperature,  IoT_Payload.humidity, IoT_Payload.timestamps)
+
+  })
+
+  
+      var line1 = new TimeSeries();
+      var line2 = new TimeSeries();
+   
+
+
+     function  sendData  (temp, humid, t) {
+
+      const d = new Date();
+      let time = d.getTime();
+      console.log("device Time transmit time was: ",  time)
+      console.log("Server Time Now: ",   time)
+      console.log("delay between server time to client time: " + ((time-t)/1000) + " seconds" )
+      
+
+        line1.append(t, temp);
+        line2.append(t, humid);
+      }
+
+      var smoothie = new SmoothieChart({ grid: { strokeStyle: 'rgb(125, 0, 0)', fillStyle: 'rgb(60, 0, 0)', lineWidth: 1, millisPerLine: 250, verticalSections: 6 } });
+      smoothie.addTimeSeries(line1, { strokeStyle: 'rgb(0, 255, 0)', fillStyle: 'rgba(0, 255, 0, 0.4)', lineWidth: 3 });
+      smoothie.addTimeSeries(line2, { strokeStyle: 'rgb(255, 0, 255)', fillStyle: 'rgba(255, 0, 255, 0.3)', lineWidth: 3 });
+
+      smoothie.streamTo(document.getElementById("mycanvas"), 1000);
+ 
+
+    </script>
+
+    <p><a href="tutorial.html">Return to tutorial</a></p>
+  
+  </body>
+</html>
