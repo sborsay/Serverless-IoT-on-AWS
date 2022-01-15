@@ -1,7 +1,7 @@
 let unix_timestamp = 1549312452
 // Create a new JavaScript Date object based on the timestamp
 // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-var date = new Date(unix_timestamp);
+var date = new Date(unix_timestamp);  // multiply by a thousand if seconds not milliseconds
 // Hours part from the timestamp
 var hours = date.getHours();
 // Minutes part from the timestamp
