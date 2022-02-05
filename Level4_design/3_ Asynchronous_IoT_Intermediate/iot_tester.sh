@@ -6,9 +6,7 @@ wait=2
 region='us-east-1'
 profile='default'
 
-
-
-for (( i = 1; i <= $iterations; i++)) {
+for (( i = 1; i <=$iterations; i++)) {
 
 #added these randomizers because old ones didnt generate good numbers
     
@@ -18,7 +16,7 @@ for (( i = 1; i <= $iterations; i++)) {
     numberT=$(expr $minT + $RANDOM % $maxT)
 
     #humidity % cannot exceed 100
-    minH= 0
+    minH=0
     maxH=100
     numberH=$(expr $minH + $RANDOM % $maxH)
 
@@ -29,7 +27,7 @@ for (( i = 1; i <= $iterations; i++)) {
   #HUMIDITY=$(( 50 + $RANDOM % 40 ))
   #VIBRATION=$(( 100 + $RANDOM % 40 ))
   temperature=$(($numberT ))
-  humidity=$(( $numberH ))
+  humidity=$(($numberH ))
 
   # 3% chance of throwing an anomalous temperature reading
   #if [ $(($RANDOM % 100)) -gt 97 ]
