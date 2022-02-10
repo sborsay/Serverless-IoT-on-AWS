@@ -1,50 +1,58 @@
-//Modified from: https://redstapler.co/javascript-realtime-chart-plotly/
 
-const socket = new WebSocket('wss://<Paste_Tour AWS-WebSocket-URL-Here>.amazonaws.com/production')
+
+const socket = new WebSocket('<Paste-Your-AWS-WebSocket-URL-Here>.amazonaws.com/production>')
 
 socket.addEventListener('open', event => {
   console.log('WebSocket is connected, now check for your new Connection ID in Cloudwatch and the Parameter Store on AWS')
 })
 
-var temp = 0;
-var ts= 0;
-
-var A = new Date('October 35, 2021 12:35:32'); 
-   var B = A.getTime();
 
 socket.addEventListener('message', event => {
 	
-  var IoT_Payload = JSON.parse(event.data);
-   console.log("ourr json object", IoT_Payload);
-temp = IoT_Payload.temperature;
-  ts = IoT_Payload.timestamps;
-console.log("temp: ", temp)
+  	console.log('Your iot payload is:', event.data);
 
-  }) //end message ws func
+    //drawChart2(event.data); //Temperature F
+    //drawChart3(event.data); //Humidity index %
+	
+   var IoT_Payload = JSON.parse(event.data);
+   console.log("ourr IoT_Payload temp: ", IoT_Payload.temperature);
+	
+
+var time = new Date();
+
+var dataa = [{
+  x: [time], 
+  y: [IoT_Payload.temperature],
+  mode: 'lines',
+  line: {color: '#ff0033'}
+}] 
+
+
+var dataa2 = [{
+  x: [time], 
+  y: [IoT_Payload.humidity],
+  mode: 'lines',
+  line: {color: '#80CAF6'}
+}] 
+
+
+Plotly.plot('graph', dataa);
+Plotly.plot('graph', dataa2); 
 
   
-            function getData() {
-               
-               return .5  //better for predicatble x-axis lacuna  - moderate gaps
-            }  
-
-
-            Plotly.plot('chart',[{
-                y:[getData],
-                type:'line'
-            }]);
-            
-            var cnt = 0;
-
-            setInterval(function(){
-
-                Plotly.extendTraces('chart',{ y:[[temp]]}, [0]);
-                cnt++;
-                if(cnt > 500) {
-                    Plotly.relayout('chart',{
-                        xaxis: {
-                            range: [cnt-500,cnt]
-                        }
-                    });
-                }
-            },15);
+  var time = new Date();
+  
+  var update = {
+  x:  [[time]],
+  y: [[IoT_Payload.temperature]]
+  }
+  
+   var update2 = {
+  x:  [[time]],
+  y: [[IoT_Payload.humidity]]
+  }
+  
+  Plotly.extendTraces('graph', update, [0])
+	Plotly.extendTraces('graph', update2, [1])
+  
+}) //end websocket message function  here
