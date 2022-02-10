@@ -9,10 +9,7 @@ socket.addEventListener('open', event => {
 
 socket.addEventListener('message', event => {
 	
-  	console.log('Your iot payload is:', event.data);
-
-    //drawChart2(event.data); //Temperature F
-    //drawChart3(event.data); //Humidity index %
+   console.log('Your iot payload is:', event.data);
 	
    var IoT_Payload = JSON.parse(event.data);
    console.log("ourr IoT_Payload temp: ", IoT_Payload.temperature);
