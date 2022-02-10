@@ -14,7 +14,6 @@ socket.addEventListener('message', event => {
    var IoT_Payload = JSON.parse(event.data);
    console.log("ourr IoT_Payload temp: ", IoT_Payload.temperature);
 	
-
 var time = new Date();
 
 var dataa = [{
@@ -35,9 +34,6 @@ var dataa2 = [{
 
 Plotly.plot('graph', dataa);
 Plotly.plot('graph', dataa2); 
-
-  
-  var time = new Date();
   
   var update = {
   x:  [[time]],
