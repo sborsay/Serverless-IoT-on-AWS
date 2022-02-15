@@ -1,5 +1,6 @@
 //check your current AWS IoT Core Region
 //Place entire command ON ONE LINE!
+//aws iot describe-endpoint --endpoint-type iot:Data-ATS
 
 aws --region us-west-2 iot-data publish --topic "myTopic" --cli-binary-format raw-in-base64-out --payload "{\"uptime\": 123,\"temp\": 44,\"humidity\": 33}"
 
