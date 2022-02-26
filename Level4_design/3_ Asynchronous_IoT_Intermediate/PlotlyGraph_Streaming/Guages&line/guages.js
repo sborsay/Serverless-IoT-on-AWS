@@ -1,7 +1,6 @@
+//Designd by Stephen Borsay https://github.com/sborsay
 
-     
-	  
-const socket = new WebSocket('wss://<YOUR-ENDPOINT>.execute-api.us-east-1.amazonaws.com/production')
+const socket = new WebSocket('wss://<YOUR-WS-ENDPOINT>.execute-api.us-east-1.amazonaws.com/production')
 
 socket.addEventListener('open', event => {
   console.log('WebSocket is connected, now check for your new Connection ID in Cloudwatch and the Parameter Store on AWS')
@@ -10,7 +9,8 @@ socket.addEventListener('open', event => {
 
 socket.addEventListener('message', event => {
 	
-  	console.log('Your iot payload is:', event.data);
+   console.log('Your iot payload is:', event.data);
+
 	
    var IoT_Payload = JSON.parse(event.data);
    console.log("ourr IoT_Payload temp: ", IoT_Payload.temperature);
@@ -52,11 +52,7 @@ socket.addEventListener('message', event => {
       mode: "delta",
       value: IoT_Payload.timestamps,
       title: { text: "Timestamp" },
-      //number: { prefix: "Timestamp"},
-      //number: { font: { size: 15 }},
-      //number : {valueformat:'f'},
-     // delta: { position: "top", valueformat:'f' },
-     delta : {position: "top",reference:100000, valueformat:'f'},
+      delta : {position: "top",reference:100000, valueformat:'f'},
       font: {
         size: [20]
       },
@@ -66,7 +62,7 @@ socket.addEventListener('message', event => {
   ];
 
 
-var layout = { width: 600, height: 300 };
+var layout = { width: 600, height: 300};
 var layout2 = { width: 600, height: 300 };
 //var layout3 = { width: 600, height: 300 };
 var layout3 = {
@@ -81,7 +77,7 @@ Plotly.newPlot('myDiv', data, layout);
 Plotly.newPlot('myDiv2', data2, layout2);
 Plotly.newPlot('myDiv3', data3, layout3);
 
-  //End Guages...begin graph section
+  //begin graph section
 
 var time = new Date();
 
@@ -89,23 +85,81 @@ var dataa = [{
   x: [time], 
   y: [IoT_Payload.temperature],
   mode: 'lines',
-  line: {color: '#ff0033'}
+  line: {color: '#ff0033'},
+  name: '<i>Temperature °</i>'
 }] 
+
+var layout4 = {
+  title: {
+    text:'<b>Temperature</b>',
+    size: 36,
+    color: '#7f7f7f'
+  },
+
+      xaxis: {
+        title: {
+        text: "time",
+        font: {
+        family: "Courier New, monospace",
+        size: 18,
+        color: "#7f7f7f"
+      }
+    }
+  },
+
+        yaxis: {
+        title: {
+        text: "temperature °",
+        font: {
+        family: "Courier New, monospace",
+        size: 18,
+        color: "#7f7f7f"
+        }
+      }
+    }
+  }
 
 
 var dataa2 = [{
   x: [time], 
   y: [IoT_Payload.humidity],
   mode: 'lines',
-  line: {color: '#80CAF6'}
+  line: {color: '#80CAF6'},
+  name: '<i>Humidity %</i>'
 }] 
 
+var layout5 = {
+  title: {
+    text:'<b>Humidity<b>',
+    size: 36,
+    color: '#7f7f7f'
+  },
 
-Plotly.plot('myDiv4', dataa);
-Plotly.plot('myDiv5', dataa2); 
+  xaxis:{ 
+    title: {
+    text: "time",
+    font: {
+    family: "Courier New, monospace",
+    size: 18,
+    color: "#7f7f7f"
+      }
+    }
+  },
 
-  
-  var time = new Date();
+    yaxis: {
+    title: {
+    text: "humidity %",
+    font: {
+    family: "Courier New, monospace",
+    size: 18,
+    color: "#7f7f7f"
+        }
+      }
+    }
+  }
+
+Plotly.plot('myDiv4', dataa, layout4);
+Plotly.plot('myDiv5', dataa2, layout5); 
   
   var update = {
   x:  [[time]],
@@ -123,5 +177,3 @@ Plotly.plot('myDiv5', dataa2);
   //end graph section
 
 }) //end websocket function
-
-
