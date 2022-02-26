@@ -52,7 +52,11 @@ socket.addEventListener('message', event => {
       mode: "delta",
       value: IoT_Payload.timestamps,
       title: { text: "Timestamp" },
-      delta : {position: "top",reference:100000, valueformat:'f'},
+      //number: { prefix: "Timestamp"},
+      //number: { font: { size: 15 }},
+      //number : {valueformat:'f'},
+     // delta: { position: "top", valueformat:'f' },
+     delta : {position: "top",reference:100000, valueformat:'f'},
       font: {
         size: [20]
       },
@@ -92,8 +96,11 @@ var dataa = [{
 var layout4 = {
   title: {
     text:'<b>Temperature</b>',
-    size: 36,
-    color: '#7f7f7f'
+    font: {
+      family: 'Courier New, monospace',
+      size: 36,
+      color: 'purple'
+    }
   },
 
       xaxis: {
@@ -131,8 +138,11 @@ var dataa2 = [{
 var layout5 = {
   title: {
     text:'<b>Humidity<b>',
-    size: 36,
-    color: '#7f7f7f'
+    font: {
+      family: 'Courier New, monospace',
+      size: 36,
+      color: 'purple'
+    }
   },
 
   xaxis:{ 
@@ -158,8 +168,10 @@ var layout5 = {
     }
   }
 
+
 Plotly.plot('myDiv4', dataa, layout4);
 Plotly.plot('myDiv5', dataa2, layout5); 
+
   
   var update = {
   x:  [[time]],
