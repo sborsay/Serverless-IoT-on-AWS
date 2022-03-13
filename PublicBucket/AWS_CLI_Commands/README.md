@@ -3,6 +3,7 @@
 ```
 aws s3api create-bucket --bucket <Your_Globally_Unique_Bucket_Name_Here> --acl public-read
 ```
+---
 
 _Create and save the following file in the same local folder on your computer that ytou are using the AWS CLI from_
 
@@ -85,5 +86,9 @@ _Upload the file to S3 with the following command_
 aws s3 cp index.html s3://<Your_Globally_Unique_Bucket_Name_Here>
 ```
 
-To see your new website for buckets in your AWS CLI home region naviagete to: https://<Your_Globally_Unique_Bucket_Name_Here>.s3.amazonaws.com/index.html
+To see your new website for buckets in your AWS CLI home region naviagete to:
+
+https://<Your_Globally_Unique_Bucket_Name_Here>.s3.amazonaws.com/index.html
+
+
 
