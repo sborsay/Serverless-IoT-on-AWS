@@ -34,6 +34,7 @@ _Upload the file to S3 with the following command_
 aws s3api put-bucket-policy --policy file://policy.json --bucket <Your_Globally_Unique_Bucket_Name_Here>
 ```
 
+_Create and save the following file in the same local folder on your computer that ytou are using the AWS CLI from_
 
 File 2 save as: **cors.json**
 
@@ -55,6 +56,34 @@ _Upload the file to S3 with the following command_
 ```
 aws s3api put-bucket-cors --cors-configuration file://cors.json --bucket <Your_Globally_Unique_Bucket_Name_Here> 
 ```
+---
+
+## To use your Public Bucket as a static website
 
 
+```
+aws s3 website s3://<Your_Globally_Unique_Bucket_Name_Here> --index-document index.html
+```
+
+_Create and save the following file in the same local folder on your computer that ytou are using the AWS CLI from_
+
+File 3 save as: **index.html**
+
+```html
+<!DOCTYPE html>
+<html>
+   <body>
+      <h1>Hello World</h1>
+      <p>My S3 static webshost, add HTML and JavaScript files as needed</p>
+   </body>
+</html>
+```
+
+_Upload the file to S3 with the following command_
+
+```
+aws s3 cp index.html s3://<Your_Globally_Unique_Bucket_Name_Here>
+```
+
+To see your new website for buckets in your AWS CLI home region naviagete to: https://<Your_Globally_Unique_Bucket_Name_Here>.s3.amazonaws.com/index.html
 
