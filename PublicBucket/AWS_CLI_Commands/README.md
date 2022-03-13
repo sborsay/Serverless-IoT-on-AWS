@@ -95,4 +95,12 @@ https://<Your_Globally_Unique_Bucket_Name_Here>.s3.amazonaws.com/index.html
 
 ![image](https://user-images.githubusercontent.com/16296900/158076079-9774e97b-e167-4af1-9794-676d65fe2e3a.png)
 
+---
+
+_Remove your bucket and all files in your bucket_
+
+```
+aws s3 rb s3://<Your_Globally_Unique_Bucket_Name_Here> --force
+```
+
 
