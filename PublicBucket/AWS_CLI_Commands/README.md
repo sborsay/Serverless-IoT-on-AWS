@@ -28,6 +28,8 @@ File 1 save as: **policy.json**
 
 _Upload the file to S3 with the following command_
 
+---
+
 ```
 aws s3api put-bucket-policy --policy file://policy.json --bucket <Your_Globally_Unique_Bucket_Name_Here>
 ```
