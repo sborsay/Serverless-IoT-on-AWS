@@ -9,7 +9,7 @@ Save the following two files in a local folder on your computer
 
 File 1 save as:  policy.json
 
-```JSON
+```json
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -26,3 +26,21 @@ File 1 save as:  policy.json
     ]
 }
 ```
+
+File 2 save as: cors.json
+
+```json
+{
+  "CORSRules": [
+    {
+      "AllowedOrigins": ["*"],
+      "AllowedHeaders": ["Authorization"],
+      "AllowedMethods": ["GET"],
+      "MaxAgeSeconds": 4000
+    }
+  ]
+}
+```
+
+
+
