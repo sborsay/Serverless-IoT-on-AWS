@@ -1,13 +1,12 @@
-Create a new bucket with a public ACL
+# Create a new bucket with a public ACL
 
-```BASH
+```
 aws s3api create-bucket --bucket <Your_Globally_Unique_Bucket_Name_Here> --acl public-read
 ```
 
+_Create and save the following file in the same local folder on your computer that ytou are using the AWS CLI from_
 
-Save the following two files in a local folder on your computer
-
-File 1 save as:  policy.json
+File 1 save as: **policy.json**
 
 ```json
 {
@@ -27,7 +26,14 @@ File 1 save as:  policy.json
 }
 ```
 
-File 2 save as: cors.json
+_Upload the file to S3 with the following command_
+
+```
+aws s3api put-bucket-policy --policy file://policy.json --bucket <Your_Globally_Unique_Bucket_Name_Here>
+```
+
+
+File 2 save as: **cors.json**
 
 ```json
 {
@@ -40,6 +46,12 @@ File 2 save as: cors.json
     }
   ]
 }
+```
+
+_Upload the file to S3 with the following command_
+
+```
+aws s3api put-bucket-cors --cors-configuration file://cors.json --bucket <Your_Globally_Unique_Bucket_Name_Here> 
 ```
 
 
