@@ -87,9 +87,11 @@ _Upload the file to S3 with the following command_
 aws s3 cp index.html s3://<Your_Globally_Unique_Bucket_Name_Here>
 ```
 
+
 To see your new website for buckets in your AWS CLI home region naviagete to:
 
 https://<Your_Globally_Unique_Bucket_Name_Here>.s3.amazonaws.com/index.html
+
 
 ![image](https://user-images.githubusercontent.com/16296900/158076079-9774e97b-e167-4af1-9794-676d65fe2e3a.png)
 
