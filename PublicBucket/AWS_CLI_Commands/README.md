@@ -1,6 +1,8 @@
+Create a new bucket with a public ACL
 
-
+```BASH
 aws s3api create-bucket --bucket <Your_Globally_Unique_Bucket_Name_Here> --acl public-read
+```
 
 
 Save the following two files in a local folder on your computer
