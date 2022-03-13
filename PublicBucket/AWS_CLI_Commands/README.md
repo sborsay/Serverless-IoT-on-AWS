@@ -99,15 +99,9 @@ https://<Your_Globally_Unique_Bucket_Name_Here>.s3.amazonaws.com/index.html
 
 
 ```diff
-@@ _Remove your bucket and all files in your bucket_)@@
-
-
-- aws s3 rb s3://<Your_Globally_Unique_Bucket_Name_Here> --force
+@@ _Remove your bucket and all files in your bucket_ @@
 
 ```
-
-
-_Remove your bucket and all files in your bucket_
 
 ```
 aws s3 rb s3://<Your_Globally_Unique_Bucket_Name_Here> --force
