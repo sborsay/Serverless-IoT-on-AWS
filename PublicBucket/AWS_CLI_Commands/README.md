@@ -1,1 +1,26 @@
-aws s3api create-bucket --bucket <Globally_unique_Bucket_Name> --acl public-read
+
+
+aws s3api create-bucket --bucket <Your_Globally_Unique_Bucket_Name_Here> --acl public-read
+
+
+Save the following two files in a local folder on your computer
+
+File 1 save as:  policy.json
+
+```JSON
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Pubdf11145d",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectVersion"
+            ],
+            "Resource": "arn:aws:s3:::<Your_Globally_Unique_Bucket_Name_Here>/*"
+        }
+    ]
+}
+```
