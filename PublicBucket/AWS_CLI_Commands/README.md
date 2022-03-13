@@ -1,5 +1,5 @@
 # Create a new bucket with a public ACL
-## Warning: Do not store private information in public buckets, all info is publically readable
+### Warning: Do not store private information in public buckets, all info is publically readable
 
 ```
 aws s3api create-bucket --bucket <Your_Globally_Unique_Bucket_Name_Here> --acl public-read
