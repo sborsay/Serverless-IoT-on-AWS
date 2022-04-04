@@ -87,7 +87,7 @@ _Upload the file to S3 with the following command_
 aws s3 cp index.html s3://<Your_Globally_Unique_Bucket_Name_Here>
 ```
 
-*There is no multifile upload other than recursive within a folder which would upload all local files[^1].
+[^1]: There is no multifile upload other than recursive within a folder which would upload all local files.
 
 To see your new website for buckets in your AWS CLI home region naviagete to:
 
