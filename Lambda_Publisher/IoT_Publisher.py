@@ -1,6 +1,5 @@
 #https://iotespresso.com/publishing-from-lambda-to-an-aws-iot-topic/
 
-
 import json
 import boto3
 
