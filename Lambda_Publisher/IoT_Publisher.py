@@ -13,7 +13,7 @@ def lambda_handler(event, context):
     # TODO implement
     # Change topic, qos and payload
     response = client.publish(
-        topic='esp32/sub',
+        topic='iot/fromLambda',
         qos=1,
         payload=json.dumps({"foo":"bar"}) #from web input via APi Gateway:  payload=json.dumps(event['queryStringParameters'])
     )
