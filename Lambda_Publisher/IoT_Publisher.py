@@ -15,7 +15,7 @@ def lambda_handler(event, context):
     response = client.publish(
         topic='iot/fromLambda',
         qos=1,
-        payload=json.dumps({"foo":"bar"}) #from web input via APi Gateway:  payload=json.dumps(event['queryStringParameters'])
+        payload=json.dumps({"foot":"ball"}) #from web input via APi Gateway:  payload=json.dumps(event['queryStringParameters'])
     )
     print(response)
     
