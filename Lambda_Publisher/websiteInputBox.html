@@ -1,5 +1,21 @@
- <!–– https://blog.summercat.com/using-aws-lambda-and-api-gateway-as-html-form-endpoint.html ––>
+
 <form method="GET" action="https://<YOUR-API-GATEWAY-ENDPOINT>.us-west-2.amazonaws.com/prod_EnableCORS/submit">
     <input type="text" name="sendBlinksToDevice" value="input your message here">
     <input type="submit" value="Submit form">
+</form>
+
+
+--------------------------------------
+alternate
+---------------------------------------
+
+
+<form action="https://<YOUR-API-GATEWAY-ENDPOINT> method="GET" class="form-example">
+  <div class="form-example">
+    <label for="name">Enter your name: </label>
+    <input type="text" name="blinks" id="blinks" required>
+  </div>
+  <div class="form-example">
+    <input type="submit" value="sent">
+  </div>
 </form>
