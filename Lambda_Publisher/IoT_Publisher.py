@@ -5,8 +5,6 @@ import boto3
 
 client = boto3.client('iot-data', region_name='us-east-2')
 
-
-
 def lambda_handler(event, context):
     print(event)
     # TODO implement
