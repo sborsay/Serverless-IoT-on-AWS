@@ -1,3 +1,4 @@
+#https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-data.html#IoTDataPlane.Client.publish
 #https://iotespresso.com/publishing-from-lambda-to-an-aws-iot-topic/
 
 import json
