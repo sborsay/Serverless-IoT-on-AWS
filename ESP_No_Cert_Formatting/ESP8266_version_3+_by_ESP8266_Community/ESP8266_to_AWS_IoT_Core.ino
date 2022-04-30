@@ -19,7 +19,7 @@
  *
  * Author: Anthony Elder
  * License: Apache License v2
- *
+ * https://github.com/earlephilhower/bearssl-esp8266/tree/master/src
  * Sketch Modified by Stephen Borsay for www.udemy.com/course/exploring-aws-iot/
  * https://github.com/sborsay
  * Add in EOF certificate delimiter
@@ -27,168 +27,145 @@
  * First 9 chars of certs obfusicated, use your own, but you can share root CA / x.509 until revoked
  */
 
- 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
-extern "C" {
-#include "libb64/cdecode.h"
-}
 
- 
-const char* ssid = "your WiFi  network";
-const char* password = "your wifi password";
- 
-// Find this awsEndpoint in the AWS Console: Manage - Things, choose your thing
-// choose Interact, its the HTTPS Rest endpoint
-const char* awsEndpoint = "a32iknowkungfu-ats.iot.us-east-1.amazonaws.com"; //your aws iot endpoint
- 
-// For the two certificate strings below paste in the text of your AWS
-// device certificate and private key, comment out the BEGIN and END
-// lines, add a quote character at the start of each line and a quote
-// and backslash at the end of each line:
- 
+const char* ssid = "<Your-WiFi-Network-Here>";
+const char* password = "<Your-Password-Here>";
+
+const char* awsEndpoint = "<YOURACCOUNTID-ats.iot.REGION.amazonaws.com>"; //AWS IoT Core--> Settings (Device data endpoint)
+
+// For the two certificate strings below paste in the text of your AWS 
+// device certificate and private key:
+
 // xxxxxxxxxx-certificate.pem.crt
-const String certificatePemCrt = \
-//-----BEGIN CERTIFICATE-----
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
-"CwUAME0xSzBJBgNVBAsMQkFtYXpvbiBXZWIgU2VydmljZXMgTz1BbWF6b24uY29t" \
-"IEluYy4gTD1TZWF0dGxlIFNUPVdhc2hpbmd0b24gQz1VUzAeFw0yMTA3MjQxNjU4" \
-"MDBaFw00OTEyMzEyMzU5NTlaMB4xHDAaBgNVBAMME0FXUyBJb1QgQ2VydGlmaWNh" \
-"dGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDGqz8yFYKa9AdlAnbY" \
-"Az7oGlWE4uHy5oowwl4LoclGiZVVikzFa/3AT7YhkoDKtmpFsaoxA/jy7fcxwVqq" \
-"yhrRQqibSTy0aIH82nEn9trDAawNXFldniAzHS9BDa6EsBewfMYZUQplACBYu5QR" \
-"i70heg+/IEppUfV9bM7JYUdQn5mCGWGDhf+Yf8Er+sFNufWjTpi6djAz4X1qDOnE" \
-"EES8wt9r/GTvrLpmVndvhswnlMKaMfupcHyrftJELW3pYu4LH8ugsBVKgv8kA8GF" \
-"jZyZWZYmuf3JEPrWPprOU0Kw8vwIOQ/VC1ZKA/VxSHeyo3Q5rJYnSxwruo1SdZF4" \
-"XwUrAgMBAAGjYDBeMB8GA1UdIwQYMBaAFBnqGRCT6Kgp0DTTqr/ZZwttLH22MB0G" \
-"A1UdDgQWBBTeZ+ZusU9cMJDfjiANujMjioeSRzAMBgNVHRMBAf8EAjAAMA4GA1Ud" \
-"DwEB/wQEAwIHgDANBgkqhkiG9w0BAQsFAAOCAQEAljcZHiWWxoagJtJNPN3wgUtM" \
-"yQqJFGl8aU6LQTVW7WQSr5f28l7+6Nsx/4b/BvmiR8E9hwkRky4bJiIFEiVjkWGG" \
-"Z1fq2T9q7OlvMF/OIOUCTENdIH+Ljp9YR5cbXHDaPYhBudS7CW+cprFaTGmFdk/f" \
-"PMQLpk5iSC2n8qFhEGjlp3TR/mpxs8a4ZJVOqWFt+5rXqVb9JTW/diO7UgD6OmSX" \
-"viaGV1lKh7Ju+x1Pj3TG79m4HIGmnjUmWFhZf+RrJVM6t92A20ydrQt1MN0PrY/4" \
-"vjFh1BaO3FxCExxqWPzxfpqk3ciJzn0bjmacz2F1ZMCK9B+VgI5VlKjwJnfllw==";
-//-----END CERTIFICATE-----
- 
+static const char certificatePemCrt[] PROGMEM = R"EOF(
+-----BEGIN CERTIFICATE-----
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+BQAwTTFLMEkGA1UECwxCQW1hem9uIFdlYiBTZXJ2aWNlcyBPPUFtYXpvbi5jb20g
+SW5jLiBMPVNlYXR0bGUgU1Q9V2FzaGluZ3RvbiBDPVVTMB4XDTIyMDIxMjIzMDQy
+NVoXDTQ5MTIzMTIzNTk1OVowHjEcMBoGA1UEAwwTQVdTIElvVCBDZXJ0aWZpY2F0
+ZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOhy3rpzRWRrnNwoRRSZ
+WQu74bD26FDBNTp1K3cejOK7A+HoTixdxYxJ0hv6Cv/9SEbfoBasP59oiTCUhgtX
+NYWfi5iYOoGJQbDycKhmWvcBOZqi6m4l+2w5LjOUOqjoo1e3+iEmz+kZb7QFBN2j
+zain1RWgNwA+AjcrclsnY7g4zy/Zn9NBEqD8YDkTqDoZF03gPb7y/USPKxZy3rI8
+kyU0Gk1rS8acqXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX6ME0AzrdqhN/pcN3OZ/a
+Iy/vxCiRAkVYCQhj/qWPz+qV9KK2teesfeJCiqUzHMfFaWq/919GzfdZeopAzAkL
+WS8CAwEAAaNgMF4wHwYDVR0jBBgwFoAUfoVNZfc8zl7iSbOrFGqHVtNfB7UwHQYD
+VR0OBBYEFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXR0P
+AQH/BAQDAgeAMA0GCSqGSIb3DQEBCwUAA4IBAQCVspP/8JhHk3Tn7bhT2uojxsmS
+idIjCYQwOR2ESYAMyvYnyKDdzJ11G+mRk0htSV75U0fLu1Nz7UYv3znrTXCdbPN7
+/YOEK+O1B05ldvWshGI4SUmTBeLEuSOcyKnlW6O5BVZlpeb8IqkF/gWo67Hn0miJ
+TKkWaN0sRO83ybMbI3HbVXMIfymn2FOZ806oa010HwRwaFccfz/s7gXfFtd4JCWd
+tMhwrYshIylUdFPOZ/T+7rsMpd3jWNWRht5/XbC3Ai6ZdGHBqXMEW3cOUeOHpkBX
+VHv+/MIcw7KNf60NQFzWG5wMkCgmvmeQkBjSSOOxFDIxB0MeiLuSL/+8OCgx
+-----END CERTIFICATE-----
+)EOF";
+
 // xxxxxxxxxx-private.pem.key
-const String privatePemKey = \
-//-----BEGIN RSA PRIVATE KEY-----
-"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
-"xWv9wE+2IZKAyrZqRbGqMQP48u33McFaqsoa0UKom0k8tGiB/NpxJ/bawwGsDVxZ" \
-"XZ4gMx0vQQ2uhLAXsHzGGVEKZQAgWLuUEYu9IXoPvyBKaVH1fWzOyWFHUJ+Zghlh" \
-"g4X/mH/BK/rBTbn1o06YunYwM+F9agzpxBBEvMLfa/xk76y6ZlZ3b4bMJ5TCmjH7" \
-"qXB8q37SRC1t6WLuCx/LoLAVSoL/JAPBhY2cmVmWJrn9yRD61j6azlNCsPL8CDkP" \
-"1QtWSgP1cUh3sqN0OayWJ0scK7qNUnWReF8FKwIDAQABAoIBAHj/lXbAiRIs7FAF" \
-"5zH7EBY2670Kngjdhm7aAoNdHwRaCVzW5ZkcA6lcIxZhbxWHckROR9SgkcALVRG1" \
-"rK32d8zZp20kdtd+CyVgOajYfTZlz0833qnZA819yej6Fz9zLIpuBA0pQYZwREMm" \
-"w7DIBgHcoLiMRyXMKBMi8PLPz6p25zZYggPoMJ+DfaF1lS2ZVo3F2t5WV1E8Q541" \
-"L9ZgOAzks3vhETd1ZbFegrAllSuM5AvoKELdg11QKX89pcis8ir34Z7nzyE8riAt" \
-"+fKke6raGMfKmbHo2s37gSlJI9SAAwmQdXkY0vbCXenRPT0mUi/VNFhfJ1Z+6UBd" \
-"8oG8DHkCgYEA5pCww2lS2R0qYnH7L2H0pXbI8KdgJ7GF3iIzRE+oSlLKz2vSVKN8" \
-"ZUDcEbm6ewjzmNVNsK5dX+eazxaIqnOKwkTsoW3CEN3cdd9uI1HimLgZCX1rVOnZ" \
-"vWGgEViXdeaZ3QndU16eDTAEi79CNLckl2EAxsLK2/jDX/HXUIQrwj0CgYEA3JXJ" \
-"DPPtqWLGY9uXbyoTatj00D3r3afza8AjmFxjAuRco3wXYVFPMarufXL99NH8fUnn" \
-"GDXYHKafNU38koWzXTryY8txbqwbsrNq7ziixYsuyTt9nFfE7OUeZ5CxzomIc0CM" \
-"26EYSQvno8AZ9SGbsJW+DkZG2cTuhT4KgPbGY4cCgYBWLd7kK4n7/RrKkTACFesL" \
-"rcqNqQIX1BLlZIMlFWEh5rBHt1V2rWThs8yOE43QTxg+F/xh/cqI/liu7w1GKMnE" \
-"s15/ODdBdqvgoxLXwNOhoa46DdcAdigc0VCzKxnxx6/bHsTLVKJe64PHeEWWzp2u" \
-"t2NC56xLbEAarJp+TejNQQKBgARqezvnJjrd31rgaoevL/RTo5MHqlElq5ncntnN" \
-"/61vJOug8FbiadN0uJGKW8sq6QMZF6dEbK8mJsnKZeQJCS40n+WfjQXKLEPHk7x2" \
-"RcvunWEp77nRh/+2FoW8P9MCrdig0jETaIkN0/VTQzHFGnjOhp+CiKiTaLMCKvOp" \
-"/Q7BAoGAb4U+1aIoZG8pkuH7iorVjj3mzn3QGL5SUGQ/mPUM+n4g/eNc8pfPg7zO" \
-"1OwucCY8x2wArFE4LG6G+pOVAmGlbqPMl7lUhOahw5BVETrNYw2L2EWf32/GwhRL" \
-"WvMotZjt5nJJXZiMo0y4h3unOvqTNQD/Yp2OdGPwhEp0J7XSxOM=";
-//-----END RSA PRIVATE KEY-----
- 
-// This is the AWS IoT CA Certificate from:
+static const char privatePemKey[] PROGMEM = R"EOF(
+-----BEGIN RSA PRIVATE KEY-----
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+LF3FjEnSG/oK//1IRt+gFqw/n2iJMJSGC1c1hZ+LmJg6gYlBsPJwqGZa9wE5mqLq
+biX7bDkuM5Q6qOijV7f6ISbP6RlvtAUE3aPNqKfVFaA3AD4CNytyWydjuDjPL9mf
+00ESoPxgOROoOhkXTeA9vvL9RI8rFnLesjyTJTQaTWtLxpyoTdlobS9PtnT6YDBC
+JuLNXwTGs/smaZjowTQDOt2qE3+lw3c5n9ojL+/EKJECRVgJCGP+pY/P6pX0ora1
+56x94kKKpTMcx8Vpar/3X0bN91l6ikDMCQtZLwIDAQABAoIBACedVAoQlRXtJRl8
+H3HIRJ20Ul1XZvZERy8EQvkVEsudNactcQ0smfszpYQxE+jWoJe7isvyZRFkvmSy
+GzoZjbyNGTxTTT1ASBrA5qQ8dWo9IjURaMSG4pdqE06lB24734KWjyFRPQOr2xah
++FdRkD4bBDygRl9bMgN2+xE/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+qH3fT9O6I68y3ZYX3piD5tRDFZ7Mjh4Z6NbA3b01Vs8YXfc2zumxJ1GGzCTTc1wa
+3iCI5SkCgYEA9+m8M27nmAPfNlU7OQW4SmZvam5I9jjzj4YefWmg2EHSKQX6eNio
+jElGybYiFTBKB0hSLEDg/f+MZnVCStrlzBHI4W8Gc/8ltOK6AXqrjN673Gu/y+C6
+y9kwRA9JicMohe1a8FlyLHcTx/LCSQ0BQ9noXzbCU64/hS0rOjprr3UCgYEA8Af+
+8+Fqf40kGUO8SGNEFti+lVS5b8dpnmyMx4nj+3+iQhy1uggl1zF3L/0derTnrTXk
+9O0rgUi8DtI1EgKiSYwWwiN7GTIFeh8P2szrWFbL0Dx454Y0kVzk8WLpVXHYucIf
+5431ov3HXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXdqHsqXhFlS
+uUUIfmon/DbmBF8BiLyIlRZmqdDnkG84OA3z0ai72v22pTcnSKDk85p0f18AVOfg
+NPc9ilc2MdrumNbDf4SSvAf64eqDfmqYHw4lW6zGHuoCMrNMCg+z/BbXL1/RsW89
+2sknUg6oZWQjuRfp5VxJUK0CgYEAlfKYzef67NXSQEo1XA9PIOqkHIvCEFdF3uc3
+BwxYNOvmBGEFEcM3SHipWXxJJzfOJ0Gs12k2LVyvxp6A8tBca4+tQ/iAVRwPmdu/
+vtMXDqeiSWMNsK0BN/INP9Knq24kkt73qWLgmcLqWblF6s9OAmKgEPfoL3hi0w5C
+kbo3pisCgYEA2IG2F6+geLdLPO8IQxnHL1bBs7TGQDru25Hk1o8fG72VSuZzViQ/
+x4xwm2x8hI6HUjZ315P39emB5382XWnhsI9LkuJufna0KtxoiBocWDFHxA6GIOz/
+6U0+bpP3rpPJlP07/LTQdEx/tbYBsKsTKhSZPtkuH4mLILuh93GBVvo=
+-----END RSA PRIVATE KEY-----
+)EOF";
+
+// This is the AWS IoT CA Certificate from: 
 // https://docs.aws.amazon.com/iot/latest/developerguide/managing-device-certs.html#server-authentication
-// This one in here is the 'RSA 2048 bit key: Amazon Root CA 1' which is valid
+// This one in here is the 'RSA 2048 bit key: Amazon Root CA 1' which is valid 
 // until January 16, 2038 so unless it gets revoked you can leave this as is:
-const String caPemCrt = \
-//-----BEGIN CERTIFICATE-----
-"MIIDQTCCAimgAwIBAgITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF" \
-"ADA5MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6" \
-"b24gUm9vdCBDQSAxMB4XDTE1MDUyNjAwMDAwMFoXDTM4MDExNzAwMDAwMFowOTEL" \
-"MAkGA1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJv" \
-"b3QgQ0EgMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALJ4gHHKeNXj" \
-"ca9HgFB0fW7Y14h29Jlo91ghYPl0hAEvrAIthtOgQ3pOsqTQNroBvo3bSMgHFzZM" \
-"9O6II8c+6zf1tRn4SWiw3te5djgdYZ6k/oI2peVKVuRF4fn9tBb6dNqcmzU5L/qw" \
-"IFAGbHrQgLKm+a/sRxmPUDgH3KKHOVj4utWp+UhnMJbulHheb4mjUcAwhmahRWa6" \
-"VOujw5H5SNz/0egwLX0tdHA114gk957EWW67c4cX8jJGKLhD+rcdqsq08p8kDi1L" \
-"93FcXmn/6pUCyziKrlA4b9v7LWIbxcceVOF34GfID5yHI9Y/QCB/IIDEgEw+OyQm" \
-"jgSubJrIqg0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC" \
-"AYYwHQYDVR0OBBYEFIQYzIU07LwMlJQuCFmcx7IQTgoIMA0GCSqGSIb3DQEBCwUA" \
-"A4IBAQCY8jdaQZChGsV2USggNiMOruYou6r4lK5IpDB/G/wkjUu0yKGX9rbxenDI" \
-"U5PMCCjjmCXPI6T53iHTfIUJrU6adTrCC2qJeHZERxhlbI1Bjjt/msv0tadQ1wUs" \
-"N+gDS63pYaACbvXy8MWy7Vu33PqUXHeeE6V/Uq2V8viTO96LXFvKWlJbYK8U90vv" \
-"o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU" \
-"5MsI+yMRQ+hDKXJioaldXgjUkK642M4UwtBV8ob2xJNDd2ZhwLnoQdeXeGADbkpy" \
-"rqXRfboQnoZsG4q5WTP468SQvvG5";
-//-----END CERTIFICATE-----
- 
-WiFiClientSecure WiFiClient;
+static const char caPemCrt[] PROGMEM = R"EOF(
+-----BEGIN CERTIFICATE-----
+MIIDQTCCAimgAwIBAgITBmyfz5m/jAo54vB4ikPmljZbyjANBgkqhkiG9w0BAQsF
+ADA5MQswCQYDVQQGEwJVUzEPMA0GA1UEChMGQW1hem9uMRkwFwYDVQQDExBBbWF6
+b24gUm9vdCBDQSAxMB4XDTE1MDUyNjAwMDAwMFoXDTM4MDExNzAwMDAwMFowOTEL
+MAkGA1UEBhMCVVMxDzANBgNVBAoTBkFtYXpvbjEZMBcGA1UEAxMQQW1hem9uIFJv
+b3QgQ0EgMTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALJ4gHHKeNXj
+ca9HgFB0fW7Y14h29Jlo91ghYPl0hAEvrAIthtOgQ3pOsqTQNroBvo3bSMgHFzZM
+9O6II8c+6zf1tRn4SWiw3te5djgdYZ6k/oI2peVKVuRF4fn9tBb6dNqcmzU5L/qw
+IFAGbHrQgLKm+a/sRxmPUDgH3KKHOVj4utWp+UhnMJbulHheb4mjUcAwhmahRWa6
+VOujw5H5SNz/0egwLX0tdHA114gk957EWW67c4cX8jJGKLhD+rcdqsq08p8kDi1L
+93FcXmn/6pUCyziKrlA4b9v7LWIbxcceVOF34GfID5yHI9Y/QCB/IIDEgEw+OyQm
+jgSubJrIqg0CAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMC
+AYYwHQYDVR0OBBYEFIQYzIU07LwMlJQuCFmcx7IQTgoIMA0GCSqGSIb3DQEBCwUA
+A4IBAQCY8jdaQZChGsV2USggNiMOruYou6r4lK5IpDB/G/wkjUu0yKGX9rbxenDI
+U5PMCCjjmCXPI6T53iHTfIUJrU6adTrCC2qJeHZERxhlbI1Bjjt/msv0tadQ1wUs
+N+gDS63pYaACbvXy8MWy7Vu33PqUXHeeE6V/Uq2V8viTO96LXFvKWlJbYK8U90vv
+o/ufQJVtMVT8QtPHRh8jrdkPSHCa2XV4cdFyQzR1bldZwgJcJmApzyMZFo6IQ6XU
+5MsI+yMRQ+hDKXJioaldXgjUkK642M4UwtBV8ob2xJNDd2ZhwLnoQdeXeGADbkpy
+rqXRfboQnoZsG4q5WTP468SQvvG5
+-----END CERTIFICATE-----
+)EOF";
 
-void msgReceived(char* topic, byte* payload, unsigned int len); //function prototype
+BearSSL::X509List client_crt(certificatePemCrt);
+BearSSL::PrivateKey client_key(privatePemKey);
+BearSSL::X509List rootCert(caPemCrt);
 
-PubSubClient pubSubClient(awsEndpoint, 8883, msgReceived, WiFiClient);
- 
-X509List *rootCert;
-X509List *clientCert;
-PrivateKey *clientKey;
- 
- 
+WiFiClientSecure wiFiClient;
+void msgReceived(char* topic, byte* payload, unsigned int len);
+PubSubClient pubSubClient(awsEndpoint, 8883, msgReceived, wiFiClient); 
+
 void setup() {
   Serial.begin(115200); Serial.println();
   Serial.println("ESP8266 AWS IoT Example");
- 
+
   Serial.print("Connecting to "); Serial.print(ssid);
   WiFi.begin(ssid, password);
   WiFi.waitForConnectResult();
   Serial.print(", WiFi connected, IP address: "); Serial.println(WiFi.localIP());
- 
+
   // get current time, otherwise certificates are flagged as expired
   setCurrentTime();
- 
-  uint8_t binaryCert[certificatePemCrt.length() * 3 / 4];
-  int len = b64decode(certificatePemCrt, binaryCert);
-  clientCert = new BearSSL::X509List(binaryCert, len);
- 
-  uint8_t binaryPrivate[privatePemKey.length() * 3 / 4];
-  len = b64decode(privatePemKey, binaryPrivate);
-  clientKey = new BearSSL::PrivateKey(binaryPrivate, len);
- 
-  WiFiClient.setClientRSACert(clientCert, clientKey);
- 
-  uint8_t binaryCA[caPemCrt.length() * 3 / 4];
-  len = b64decode(caPemCrt, binaryCA);
-  rootCert = new BearSSL::X509List(binaryCA, len);
- 
-  WiFiClient.setTrustAnchors(rootCert);
+
+  wiFiClient.setClientRSACert(&client_crt, &client_key);
+  wiFiClient.setTrustAnchors(&rootCert);
 }
- 
+
 unsigned long lastPublish;
 int msgCount;
- 
+
 void loop() {
- 
+
   pubSubCheckConnect();
 
-  //Add a JSON package of fake data to deliver to AWS IoT
-  //Uses snprintf but other viable options are: sprintf, strcpy, strncpy, or  
-  //Use the ArduinoJson library for Efficient JSON serialization  
-  //If you need to increase buffer size, then you need to change MQTT_MAX_PACKET_SIZE in PubSubClient.h
-  char fakeData[128];
-  float var1 =  random(55,77); //fake number range, adjust as you like  
-  float var2 =  random(77,99);  
-  sprintf(fakeData,  "{\"uptime\":%lu,\"temp\":%f,\"humid\":%f}", millis() / 1000, var1, var2);
- 
-  if (millis() - lastPublish > 10000) {
-     pubSubClient.publish("outTopic", fakeData);  
-     Serial.print("Published: "); Serial.println(fakeData);
-     lastPublish = millis();
+  //If you need to increase buffer size, change MQTT_MAX_PACKET_SIZE in PubSubClient.h
+   char fakeData[128];
+
+  float var1 =  random(0,120); //fake number range, adjust as you like
+  float var2 =  random(0,100);
+  sprintf(fakeData,  "{\"uptime\":%lu,\"temperature\":%f,\"humidity\":%f}", millis() / 1000, var1, var2);
+  
+  if (millis() - lastPublish > 5000) {
+  boolean rc = pubSubClient.publish("outTopic", fakeData);
+    Serial.print("Published, rc=");
+    Serial.print( (rc ? "OK: " : "FAILED: ") );
+    Serial.println(fakeData);
+    lastPublish = millis();
   }
 }
- 
+
 void msgReceived(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message received on "); Serial.print(topic); Serial.print(": ");
   for (int i = 0; i < length; i++) {
@@ -196,7 +173,7 @@ void msgReceived(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
 }
- 
+
 void pubSubCheckConnect() {
   if ( ! pubSubClient.connected()) {
     Serial.print("PubSubClient connecting to: "); Serial.print(awsEndpoint);
@@ -209,17 +186,10 @@ void pubSubCheckConnect() {
   }
   pubSubClient.loop();
 }
- 
-int b64decode(String b64Text, uint8_t* output) {
-  base64_decodestate s;
-  base64_init_decodestate(&s);
-  int cnt = base64_decode_block(b64Text.c_str(), b64Text.length(), (char*)output, &s);
-  return cnt;
-}
- 
+
 void setCurrentTime() {
   configTime(3 * 3600, 0, "pool.ntp.org", "time.nist.gov");
- 
+
   Serial.print("Waiting for NTP time sync: ");
   time_t now = time(nullptr);
   while (now < 8 * 3600 * 2) {
