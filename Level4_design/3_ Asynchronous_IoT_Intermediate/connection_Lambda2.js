@@ -19,7 +19,7 @@ var params = {
   Overwrite: true  //not required but default is False
 };
 
-//await and promise() stub are not documented but neccessary for function to work -  UNFORTUNATELY
+//await and promise() stub are not documented but neccessary for function to work - UNFORTUNATELY
 var mySSM_request = await mySSM_Client.putParameter(params, function(err, data) {
   if (err) console.log(err, err.stack); // an error occurred
   else     console.log("success: ", data);           // successful response
