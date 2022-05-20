@@ -1,8 +1,17 @@
 # Create a new bucket with a public ACL
 ### Warning: Do not store private information in public buckets, all info is publically readable
 
+To make a bucket in your home region (Your AWS CLI is configured to this region)
+
 ```
 aws s3api create-bucket --bucket <Your_Globally_Unique_Bucket_Name_Here> --acl public-read
+```
+---
+
+For creating a bucket in another region
+
+```
+aws s3api create-bucket --bucket <Your-Bucket-Name> --region <AWS-Region> --create-bucket-configuration LocationConstraint=<AWS-Region> --acl public-read
 ```
 ---
 
