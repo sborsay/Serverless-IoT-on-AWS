@@ -11,6 +11,7 @@ Step 3 – Creating a S3 Bucket from the AWS CLI
 When using the CLI the bucket will default to your “home” region in which your AWS CLI is configured.  If you make a bucket, as we did in the console, outside your home region, then you will have to use different commands with he ‘s3API’ as I demonstrate below for creating another bucket in us-west-2.
 
 Create a new bucket with a public ACL
+
 •	Warning: Do not store private information in public buckets, all info is publicly readable
 
 Create a public bucket with:
