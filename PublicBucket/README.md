@@ -7,10 +7,10 @@ https://emagalha.es/blog/2020/05/07/securing-s3-static-websites/
 
 
 Step 1 – Creating a S3 bucket from the AWS Console
+
 Step 2 – Enabling a Static Web Host in the S3 Bucket
-Step 3 – Creating a S3 Bucket from the AWS CLI
-Step 4 – Enabling a Static Web Host in the S3 bucket from the AWS CLI
-Step 5 – Deleting the S3 Bucket and all files with a single AWS CLI command
+
+
 
 ![image](https://user-images.githubusercontent.com/16296900/169627735-20a15db4-e568-48af-9cb6-3415f55bedab.png)
 
