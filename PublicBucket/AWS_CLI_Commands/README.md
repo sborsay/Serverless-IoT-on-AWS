@@ -151,7 +151,7 @@ File 3 save as: “index.html”
 Upload the index.html file to S3 with the following command
 
  ```
-aws s3 cp index.html s3://<Your_Globally_Unique_Bucket_Name_Here>
+aws s3 cp index.html s3://<Your_Globally_Unique_Bucket_Name_Here> --region <Your-AWS-Region>
 ```
  
 ![image](https://user-images.githubusercontent.com/16296900/169628757-c3fc199f-953d-4edc-9d8b-c3be4aaf81e0.png)
