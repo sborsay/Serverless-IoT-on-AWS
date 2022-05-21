@@ -173,7 +173,7 @@ or go to:
  ![image](https://user-images.githubusercontent.com/16296900/169628789-cb53ff72-fd34-4656-876b-27f1f5b7bf55.png)
 
 
- Right click for your website
+ Right click on the Object URL for your website
 
 Step 5 – Deleting the S3 Bucket and all files with a single AWS CLI command
 
