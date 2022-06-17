@@ -1,5 +1,6 @@
-#Using 'conda_chainer_p36'  Also importing Boto3 no longer required, done by default
+#Using 'conda_chainer_p36'  
 
+import boto3
 import pandas as pd
 from matplotlib import pyplot as plt
 
