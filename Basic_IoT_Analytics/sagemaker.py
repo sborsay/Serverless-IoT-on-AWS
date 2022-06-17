@@ -9,7 +9,7 @@ client = boto3.client('iotanalytics')
 #after running the code portion above run the code below with your own dataset
 
 
-dataset = "creatds617"
+dataset = "YOUR_DATASET_HERE"
 dataset_url = client.get_dataset_content(datasetName = dataset)['entries'][0]['dataURI']
 
 # start working with the data
