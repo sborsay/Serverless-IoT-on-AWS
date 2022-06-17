@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script>
+
+    $(document).ready(function () {
+      $("button").click(function () {
+        $.get("https://<YOUR-BUCKET-NAME>.s3.amazonaws.com/<YOUR-PATH>/<YOUR-DATA-FILE>.csv", function (data) {
+
+          data = data.replace(/"/g, '').split('\n');
+          let allRecArr = data.map(x => {
+            x = x.split(',').map(x => +x);
+            return x;
+          });
+
+          google.charts.load('current', { packages: ['corechart', 'line'] });
+          google.charts.setOnLoadCallback(drawBasic);
+
+          function drawBasic() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'time');
+            data.addColumn('number', 'temperature');
+            data.addColumn('number', 'humidity');
+
+            for (i = 1; i < allRecArr.length; i++) {
+              let item = allRecArr[i];
+              if (item[2]) {
+                data.addRows([
+                  [item[2], item[0], item[1]]
+                ]);
+              } else {
+                console.log('skip record', item)
+              }
+            }
+
+            var options = {
+              chartArea:{left:50,top:50,width:"85%"},
+              height: 780,
+              hAxis: {
+                title: 'Time'
+              },
+              vAxis: {
+                title: 'Environmental Data'
+              }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+          }
+
+        });
+      });
+    });
+
+  </script>
+</head>
+<body>
+  <br>
+  <button>Press to display your IoT data</button>
+  <div id="chart_div"></div>
+</body>
+</html>
