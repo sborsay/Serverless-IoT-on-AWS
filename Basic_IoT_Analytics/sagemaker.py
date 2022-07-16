@@ -1,4 +1,4 @@
-#Using 'conda_chainer_p36'  
+#Using 'conda_chainer_p36'  or 'conda_pytorch_p38'
 
 import boto3
 import pandas as pd
