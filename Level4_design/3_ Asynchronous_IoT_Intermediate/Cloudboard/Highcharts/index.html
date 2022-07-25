@@ -10,11 +10,15 @@
 
 <body>
     <div class="container">
-        <h1>Asynchronous IoT Weather Data with AWS WebSockets</h1>
+        <h2 style="color:DodgerBlue;">Asynchronous Real-Time IoT with Cloudboard featuring AWS WebSockets  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Website: Cloudboard.cc </h2>
+        <!--
+        <h3 style="color:Tomato;">Website: Cloudboard.cc</h3>
+        <h4 style="color:peru;">Open Chromium console to see live readings (Ctrl + Shift + J or Ctrl + Shift + I)</h4>
+    -->
 
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title"><strong>Line Chart</strong></h3>
+               <!-- <h3 class="panel-title"><strong>Line Chart</strong></h3> -->
             </div>
             <div class="panel-body">
                 <div class="col-sm-6 col-md-6">
@@ -67,15 +71,25 @@
             </figure> 
         </div>
 
-
-        <figure class="col-sm-4">
+        <div class="col-sm-4">
+         <figure class="col-sm-4">
             <figure class="highcharts-figure"></figure>
                 <div id="container4"></div>
                     <p class="highcharts-description">
-                    Epoch/UNIX time, expect many ticks per Second 
+                        Resistence Guage showing Ohms of resistence
                 </p>
             </figure>
         </div>
+
+        <div class="col-sm-4">
+            <figure class="col-sm-4">
+               <figure class="highcharts-figure"></figure>
+                   <div id="container5"></div>
+                       <p class="highcharts-description">
+                        Light Guage showing lux of light penetration
+                   </p>
+               </figure>
+           </div>
 
      </div>
    
@@ -94,5 +108,3 @@
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="./main.js"></script>
-
-
