@@ -1,1 +1,98 @@
-dd
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Asynchronous IoT Weather Data with AWS WebSockets</h1>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Line Chart</strong></h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-6 col-md-6">
+                <div id="container1"></div>
+                </div>
+           </div>
+        </div>
+        
+        <style>
+            .row {
+              box-sizing: border-box;
+            }
+
+            .row {
+              display: flex;
+              justify-content: space-between;
+            }
+            
+            
+
+            .row {
+              width: 100%;
+              padding: 10px;
+            }
+
+        </style>
+          
+
+
+   <div class="row">
+  
+        <div class="col-sm-4">
+            <figure class="highcharts-figure">
+           
+                <div id="container2"></div>
+                    <p class="highcharts-description">
+                    Temperature Gauge with Degrees in Fehr/Cel
+                </p>
+            </figure>
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <figure class="highcharts-figure">
+                <div id="container3"></div>
+                    <p class="highcharts-description">
+                   Humidity Guage showing %of water saturation
+                </p>
+            </figure> 
+        </div>
+
+
+        <figure class="col-sm-4">
+            <figure class="highcharts-figure"></figure>
+                <div id="container4"></div>
+                    <p class="highcharts-description">
+                    Epoch/UNIX time, expect many ticks per Second 
+                </p>
+            </figure>
+        </div>
+
+     </div>
+   
+</div>
+
+    
+    </body>
+    </html>
+
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="./main.js"></script>
+
+
