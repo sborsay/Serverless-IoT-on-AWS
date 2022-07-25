@@ -1,1 +1,47 @@
-zdv
+<head>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+</head>
+<body>
+<style> 
+  .leftpane {
+    width: 27%;
+    min-height: 100vh;  /* temperature line charts */
+    float: left;
+    background-color: white;
+    border-collapse: collapse;
+}
+</style>
+
+<div class="leftpane">
+  <div id="myDiv"></div> <!-- temp gauge -->
+  <div id="myDiv2"></div> <!-- humidity gauge -->
+  <div id="myDiv6"></div> <!-- resistance guage-->
+  <div id="myDiv7"></div> <!-- lux gauge -->
+  <div id="myDiv3"></div> <!-- time gauge-->-->
+</div>
+
+<style>
+.rightpane {
+  width: 73%;
+  min-height: 100vh;  /* height: 100%; */
+  position: relative;
+  float: right;
+  background-color: green;
+  border-collapse: collapse;
+}
+</style>
+
+<div class="rightpane">
+    <div id="myDiv4"></div>  <!-- temperature line charts-->
+    <div id="myDiv5"></div>   <!-- humid line chart-->
+    <div id="myDiv8"></div>    <!-- resistance chart -->
+    <div id="myDiv9"></div>   <!-- lux chart -->
+    
+    </div>  
+
+</body>
+
+<script src="./guages.js"></script>
+<!--  <script src="./graph.js"></script>   -->
