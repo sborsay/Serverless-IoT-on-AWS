@@ -2,6 +2,13 @@
 Cloudboard by Stephen Borsay
 AWS Connection
 For AWS WebSockets Serverless Real-Time IoT Dashboarding
+
+ Author: Anthony Elder 
+ License: Apache License v2
+ Sketch Modified by Stephen Borsay for www.udemy.com
+ https://github.com/sborsay
+ Add in Char buffer utilizing sprintf to dispatch JSON data to AWS IoT Core
+ Use and replace your own SID, PW, AWS Account Endpoint, Client cert, private cert, x.509 CA root Cert
 *********/
 
 #include <Wire.h>
@@ -201,7 +208,6 @@ void loop() {
   pubSubCheckConnect();
  
   delay(2000);
-  
 
    lightLevel = analogRead(sensorPin);
    Serial.println((String)"The Photoresistor light level is: " + lightLevel);
@@ -229,12 +235,6 @@ void loop() {
   display.setTextSize(2);
   display.setCursor(0,10);
   display.print(((t * 9/5) + 32),1);  // (°C × 9/5) + 32 = °F
-  //display.print(" ");
-  //display.setTextSize(1);
-  //display.cp437(true);
-  //display.write(167);
-  //display.setTextSize(1);
- // display.print("C");
   
   // display humidity
   display.setTextSize(1);
@@ -276,7 +276,6 @@ void loop() {
   }
   
 }
-
 
 
 void msgReceived(char* topic, byte* payload, unsigned int length) {
