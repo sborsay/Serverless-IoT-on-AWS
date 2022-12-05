@@ -4,7 +4,7 @@ File-->Preferences-->Additional Board Manager  URL's -->
 ENTER:
 https://dl.espressif.com/dl/package_esp32_index.json, http://arduino.esp8266.com/stable/package_esp8266com_index.json
 
-This will allow you to find the Board Manager Package required
+This will allow you to find the Board Manager Package required.
  
  ----------------------------
  
