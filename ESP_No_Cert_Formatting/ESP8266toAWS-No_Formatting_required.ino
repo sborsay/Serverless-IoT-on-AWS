@@ -2,7 +2,7 @@
  *  
  * Simplest possible example (that I could come up with) of using an ESP8266 with AWS IoT.
  * No messing with openssl or spiffs just regular pubsub and certificates in string constants
- * 
+ * added sntp librarys
  * This is working as at 3rd Aug 2019 with the current ESP8266 Arduino core release:
  * SDK:2.2.1(cfd48f3)/Core:2.5.2-56-g403001e3=20502056/lwIP:STABLE-2_1_2_RELEASE/glue:1.1-7-g82abda3/BearSSL:6b9587f
  * 
