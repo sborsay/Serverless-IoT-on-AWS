@@ -15,6 +15,8 @@
  * Add in Char buffer utilizing sprintf to dispatch JSON data to AWS IoT Core
  * First 9 chars of certs obfusicated, use your own, but you can share root CA / x.509 until revoked
  */
+#include <time.h>
+#include "sntp.h"
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 extern "C" {
@@ -134,6 +136,8 @@ void setup() {
   Serial.print(", WiFi connected, IP address: "); Serial.println(WiFi.localIP());
 
   // get current time, otherwise certificates are flagged as expired
+  sntp_stop(); //speeds up the connection with UDP servers
+  sntp_init();// speeds up the connection with UDP servers
   setCurrentTime();
 
   uint8_t binaryCert[certificatePemCrt.length() * 3 / 4];
