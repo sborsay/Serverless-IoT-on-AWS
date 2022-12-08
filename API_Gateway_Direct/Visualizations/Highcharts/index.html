@@ -63,7 +63,7 @@
 
 
                     let splitName = element.split('/');
-                    if (splitName[0] === '<YOUR-FOLDER-NAME>' && splitName[1] !== '') {
+                    if (splitName[0] === '<YOUR-FOLDER-NAME-N0-BACKSLASH>' && splitName[1] !== '') {
                         promiseArr.push(new Promise((resolve, reject) => {
                             var innerReq = new XMLHttpRequest();
                             innerReq.open("GET", "https://<YOU-BUCKET-NAME>.s3.amazonaws.com/" + splitName[0] + "/" + splitName[1], true);
