@@ -7,6 +7,8 @@ Troubleshooting ESP8266 and ESP32 connection issues.
 
 1B.  Make sure the your device AWS endpoint region matches the current AWS region in your console on the browser
 
+1C.  Use the 'ATS' AWS endpoint from IoT Core--> Settings or: aws iot describe-endpoint --endpoint-type iot:Data-ATS
+
 2.  Make sure port 8883 isn't being blocked by your network admin, this is the port that MQTT(s) traditionally communicates,
     AWS IoT Core requires you send MQTT data over secure port 8883 or 443
 
